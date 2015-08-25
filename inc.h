@@ -215,6 +215,13 @@ void print(const vector<Box> & b)
     cout << endl;
 }
 
+void print(const vector<bool> & v)
+{
+    for (bool b : v)
+        cout << b << ' ';
+    cout << endl;
+}
+
 int genRand(int from, int to)
 {
     int range = to - from + 1;
