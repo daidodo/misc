@@ -124,6 +124,14 @@ imap <C-l> <C-o>O
 " ctrl-w switch between windows
 imap <C-w> <C-o><C-w>w
 
+" settings for vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
