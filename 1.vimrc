@@ -70,7 +70,7 @@ set fencs=ucs-bom,prc,latin1
 
 set tags=tags,./tags,../tags,../../tags,../../../tags,../../../../tags,~/sys.tags
 
-set path=marine,.,./marine,..,../marine,../..,../../marine,/usr/include,/usr/include/c++/4.3/,/usr/src/linux-headers-2.6.28-11/include
+set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
 
 set listchars=tab:>-,trail:- "when you enter 'set list', TAB will shown as '>---'
 
