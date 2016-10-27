@@ -14,4 +14,5 @@ apt-get -y update && \
   gdb gdb-doc \
   language-pack-zh-hans \
   sudo \
-  openssh-server
+  openssh-server \
+  lrzsz
