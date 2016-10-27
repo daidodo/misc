@@ -43,8 +43,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'fatih/vim-go'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'fatih/vim-go'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'solarnz/thrift.vim'
 
 " All of your Plugins must be added before the following line

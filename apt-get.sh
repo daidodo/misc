@@ -12,4 +12,6 @@ apt-get -y update && \
   libssl-dev libssl-doc \
   libgoogle-perftools-dev google-perftools \
   gdb gdb-doc \
-  language-pack-zh-hans
+  language-pack-zh-hans \
+  sudo \
+  openssh-server
