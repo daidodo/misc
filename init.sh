@@ -34,8 +34,5 @@ mkdir -p /var/run/sshd
 sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin no/' /etc/ssh/sshd_config
 sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
-# misc
-echo "dev" > /etc/hostname
-
 # clean up
 rm -f *.sh 1.*

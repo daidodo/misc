@@ -1,4 +1,5 @@
 #!/bin/bash
 
-docker build --shm-size 1024MB --force-rm -t test -f Dockerfile.base .
-#docker build --shm-size 1024MB --force-rm -t test .
+docker build --force-rm -t base -f Dockerfile.base .
+
+docker build --shm-size 1024MB --force-rm -t dev .
