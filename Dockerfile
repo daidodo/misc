@@ -13,7 +13,7 @@ RUN apk add \
 
 WORKDIR /tmp/
 
-RUN wget http://zlib.net/zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure --prefix=/usr && make && make install && cd ..
+RUN wget http://zlib.net/zlib-1.2.8.tar.gz && tar -xzf zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure --prefix=/usr && make && make install && cd ..
 
 RUN wget http://mirrors.evowise.com/pub/OpenBSD/OpenSSH/portable/openssh-7.3p1.tar.gz
 
