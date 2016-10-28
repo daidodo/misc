@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk-install \
+RUN apk --no-cache add \
   bash bash-completion bash-doc command-not-found \
   sudo git less \
   gcc g++ gdb gdb-doc \
