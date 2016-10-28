@@ -4,8 +4,8 @@ RUN apk --no-cache add \
   bash bash-completion bash-doc \
   sudo git less \
   gcc g++ gdb gdb-doc \
-  vim  \
-  automake make 
+  vim ctags \
+  automake make \
   protobuf-compiler libprotobuf-dev \
   libgoogle-perftools-dev google-perftools \
   libsnappy-dev \
