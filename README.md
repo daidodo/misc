@@ -22,7 +22,7 @@ If you find it useful, please drop me a message in the comments. Thanks!
 
 ## Usage
 ### Run
-`docker run -d -p 127.0.0.1:22222:22 --name dev -h dev dev`
+`docker run -d -p 127.0.0.1:22222:22 --name dev -h dev daidodo/dev`
 ### Login
 `ssh dozerg@localhost -p 22222`
 
