@@ -1,15 +1,16 @@
-FROM ubuntu
+FROM alpine
 
-MAINTAINER DoZerg "daidodo@gmail.com"
+RUN apk-install \
+  bash bash-completion bash-doc command-not-found \
+  sudo git less \
+  gcc g++ gdb gdb-doc \
+  manpages man-db manpages-dev \
+  vim exuberant-ctags \
+  automake make\
+  protobuf-compiler libprotobuf-dev \
+  libgoogle-perftools-dev google-perftools \
+  libsnappy-dev \
+  openssh-server lrzsz libssl-dev libssl-doc \
+  language-pack-zh-hans \
 
-COPY init.sh apt-get.sh gen_systags.sh 1.vimrc /tmp/
-
-WORKDIR /tmp/
-
-RUN chmod +x *.sh && ./apt-get.sh && ./init.sh
-
-EXPOSE 22
-
-ENTRYPOINT [ "/usr/sbin/sshd" ]
-
-CMD [ "-D" ]
+CMD [ "/bin/bash" ]
