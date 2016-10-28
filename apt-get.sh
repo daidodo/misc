@@ -7,6 +7,7 @@ apt-get -y update && \
   manpages man-db \
   vim exuberant-ctags \
   make \
+  automake \
   protobuf-compiler libprotobuf-dev \
   libsnappy-dev \
   libssl-dev libssl-doc \
