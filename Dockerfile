@@ -5,13 +5,9 @@ RUN apk --no-cache add \
   sudo git less \
   gcc g++ gdb gdb-doc \
   vim ctags \
-  automake make \
-  protobuf-compiler libprotobuf-dev \
-  libgoogle-perftools-dev google-perftools \
-  libsnappy-dev \
-  openssh-server lrzsz libssl-dev libssl-doc \
-  language-pack-zh-hans \
+  automake make 
 
-# command-not-found exuberant-ctags manpages man-db manpages-dev
+
+# command-not-found exuberant-ctags manpages man-db manpages-dev google-perftools language-pack-zh-hans libgoogle-perftools-dev libprotobuf-dev libsnappy-dev libssl-dev libssl-doc lrzsz openssh-server  protobuf-compiler
   
 #CMD [ "/bin/bash" ]
