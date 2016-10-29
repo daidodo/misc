@@ -2,10 +2,13 @@
 apk --update add \
   bash bash-completion bash-doc \
   sudo git less \
-  gcc g++ gdb gdb-doc linux-headers \
+  gcc g++ gdb gdb-doc \
+  gperf gperf-doc \
+  linux-headers \
   man man-pages \
   vim ctags \
   automake make \
+  protobuf protobuf-dev protobuf-vim \
   openssh-sftp-server openssh-client dropbear
 
 # config
@@ -22,6 +25,12 @@ while read line ; do
     echo $line
   fi
 done < 1.vimrc > /etc/skel/.vimrc
+
+# sz rz
+tar -xzf lrzsz-0.12.20.tar.gz && \
+  cd lrzsz-0.12.20/ && \
+  ./configure --prefix=/usr && \
+  make && sudo make install
 
 # user
 adduser dozerg -G root -D && \

@@ -95,8 +95,8 @@ alias l='ls -CF'
 # misc aliases
 alias vi='vim'
 alias v='view'
-alias sz='sz -bye'
-alias rz='rz -bye'
+alias sz='lsz -bye'
+alias rz='lrz -bye'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert

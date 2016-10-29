@@ -10,8 +10,7 @@ WORKDIR /tmp
 
 RUN chmod +x *.sh && ./init.sh
 
-# manpages man-db manpages-dev 
-# google-perftools libgoogle-perftools-dev libprotobuf-dev libsnappy-dev lrzsz   protobuf-compiler
+# google-perftools libgoogle-perftools-dev libsnappy-dev 
   
 EXPOSE 22
 
