@@ -4,7 +4,7 @@ MAINTAINER DoZerg "daidodo@gmail.com"
 
 WORKDIR /tmp/
 
-COPY ./* /tmp/
+COPY init.sh gen_systags.sh 1.vimrc skel /tmp/
 
 RUN chmod +x *.sh && ./init.sh
 
