@@ -2,7 +2,7 @@ FROM alpine
 
 MAINTAINER DoZerg "daidodo@gmail.com"
 
-COPY alpine/ /tmp
+COPY ./ /tmp
 
 WORKDIR /tmp
 
