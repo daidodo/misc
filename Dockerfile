@@ -10,7 +10,7 @@ RUN apk --update add \
   openssh
 
 # user & permission
-adduser dozerg -G root -D && \
+RUN adduser dozerg -G root -D && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
   mkdir -p /home/dozerg/work && \
@@ -21,9 +21,9 @@ adduser dozerg -G root -D && \
 #  mv ~/sys.tags ~/.vim ~dozerg/ && \
 
 # sshd
-mkdir -p /var/run/sshd
-sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin no/' /etc/ssh/sshd_config
-sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+RUN mkdir -p /var/run/sshd && \
+  sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin no/' /etc/ssh/sshd_config && \
+  sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
 # manpages man-db manpages-dev google-perftools libgoogle-perftools-dev libprotobuf-dev libsnappy-dev lrzsz openssh-server  protobuf-compiler
   
