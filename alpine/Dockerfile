@@ -19,7 +19,7 @@ WORKDIR /tmp/
 COPY init.sh gen_systags.sh 1.vimrc /tmp/
 RUN chmod +x *.sh && mkdir -p /tmp/skel/
 COPY skel/* /tmp/skel/
-RUN init.sh && mv skel /etc/
+RUN ./init.sh && mv skel /etc/
 
 # user
 RUN adduser dozerg -G root -D && \
