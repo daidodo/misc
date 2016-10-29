@@ -50,3 +50,4 @@ mkdir -p /etc/dropbear && \
   
 # cleanup
 #rm -rf *
+git clone https://github.com/daidodo/marine.git /home/dozerg/marine
