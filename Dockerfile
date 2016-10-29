@@ -1,25 +1,34 @@
 FROM alpine
 
 #RUN apk --no-cache add \
-RUN apk update && apk add \
+RUN apk --update add \
   bash bash-completion bash-doc \
   sudo git less \
-  gcc g++ gdb gdb-doc \
+  gcc g++ gdb gdb-doc linux-headers \
   vim ctags \
   automake make \
-  linux-headers
+  openssh
 
-WORKDIR /tmp/
+# user & permission
+useradd dozerg -g root && \
+  echo 'dozerg:dozerg' | chpasswd && \
+  echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
+  mkdir -p /home/dozerg/work && \
+  chown -R dozerg /home/dozerg
+  
+#  cp ~/.vimrc ~/.bashrc ~dozerg/ && \
+#  cp /etc/skel/.bash* /home/dozerg && \
+#  mv ~/sys.tags ~/.vim ~dozerg/ && \
 
-# zlib
-RUN wget http://zlib.net/zlib-1.2.8.tar.gz && tar -xzf zlib-1.2.8.tar.gz && cd zlib-1.2.8 && ./configure --prefix=/usr && make && make install && cd ..
-
-# openssl
-#RUN wget http://www.openssl.org/source/openssl-1.1.0b.tar.gz
-COPY openssl-1.1.0b.tar.gz /tmp/
-
-RUN wget http://mirrors.evowise.com/pub/OpenBSD/OpenSSH/portable/openssh-7.3p1.tar.gz
+# sshd
+mkdir -p /var/run/sshd
+sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin no/' /etc/ssh/sshd_config
+sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
 # manpages man-db manpages-dev google-perftools libgoogle-perftools-dev libprotobuf-dev libsnappy-dev lrzsz openssh-server  protobuf-compiler
   
-#CMD [ "/bin/bash" ]
+EXPOSE 22
+
+ENTRYPOINT [ "/usr/sbin/sshd" ]
+
+CMD [ "-D" ]
