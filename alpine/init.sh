@@ -38,3 +38,6 @@ adduser dozerg -G root -D && \
 mkdir -p /etc/dropbear && \
   touch /var/log/lastlog && \
   sed -ri 's/^dozerg.*/dozerg:x:1000:0::\/home\/dozerg:\/bin\/bash/' /etc/passwd
+  
+# cleanup
+rm -rf *

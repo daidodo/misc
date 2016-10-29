@@ -1,8 +1,10 @@
 FROM alpine
 
+MAINTAINER DoZerg "daidodo@gmail.com"
+
 WORKDIR /tmp/
 
-COPY . /tmp/
+COPY ./* /tmp/
 
 RUN chmod +x *.sh && ./init.sh
 
