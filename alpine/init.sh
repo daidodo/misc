@@ -9,6 +9,7 @@ apk --update add \
   vim ctags \
   automake make \
   protobuf protobuf-dev protobuf-vim \
+  snappy snappy-dev snappy-doc \
   openssh-sftp-server openssh-client dropbear
 
 # config
