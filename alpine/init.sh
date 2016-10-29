@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # install
 apk --no-cache add \
   bash bash-completion bash-doc \

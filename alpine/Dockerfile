@@ -2,11 +2,11 @@ FROM alpine
 
 MAINTAINER DoZerg "daidodo@gmail.com"
 
-WORKDIR /tmp/
+COPY alpine/ /tmp
 
-COPY alpine/* /tmp/
+WORKDIR /tmp
 
-RUN chmod +x *.sh && ./init.sh
+RUN chmod +x *.sh && /tmp/init.sh
 
 # manpages man-db manpages-dev google-perftools libgoogle-perftools-dev libprotobuf-dev libsnappy-dev lrzsz openssh-server  protobuf-compiler
   
