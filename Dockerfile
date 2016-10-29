@@ -9,7 +9,7 @@ RUN apk --update add \
   automake make \
   openssh-sftp-server openssh-client dropbear
 
-# sshd
+# dropbear
 RUN mkdir -p /etc/dropbear && \
   touch /var/log/lastlog
 
@@ -18,7 +18,8 @@ RUN adduser dozerg -G root -D && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
   mkdir -p /home/dozerg/work && \
-  chown -R dozerg /home/dozerg
+  chown -R dozerg /home/dozerg && \
+  sed -ri 's/^dozerg.*/dozerg:x:1000:0::\/home\/dozerg:\/bin\/bash/' /etc/passwd
   
 #  cp ~/.vimrc ~/.bashrc ~dozerg/ && \
 #  cp /etc/skel/.bash* /home/dozerg && \
