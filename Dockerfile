@@ -23,7 +23,9 @@ RUN adduser dozerg -G root -D && \
 # sshd
 RUN mkdir -p /var/run/sshd && \
   sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin no/' /etc/ssh/sshd_config && \
-  sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+  sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config && \
+  ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key && \
+  ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
 
 # manpages man-db manpages-dev google-perftools libgoogle-perftools-dev libprotobuf-dev libsnappy-dev lrzsz openssh-server  protobuf-compiler
   
