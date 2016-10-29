@@ -10,7 +10,7 @@ RUN apk --update add \
   openssh
 
 # user & permission
-useradd dozerg -g root && \
+adduser dozerg -G root -D && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
   mkdir -p /home/dozerg/work && \
