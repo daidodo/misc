@@ -7,9 +7,13 @@ RUN apk --update add \
   gcc g++ gdb gdb-doc linux-headers \
   vim ctags \
   automake make \
-  openssh
+  openssh-sftp-server openssh-client dropbear
 
-# user & permission
+# sshd
+RUN mkdir -p /etc/dropbear && \
+  touch /var/log/lastlog
+
+# user
 RUN adduser dozerg -G root -D && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
@@ -20,20 +24,10 @@ RUN adduser dozerg -G root -D && \
 #  cp /etc/skel/.bash* /home/dozerg && \
 #  mv ~/sys.tags ~/.vim ~dozerg/ && \
 
-# sshd
-RUN mkdir -p /var/run/sshd && \
-  sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin no/' /etc/ssh/sshd_config && \
-  sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config && \
-  ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key && \
-  ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
-
-RUN echo 'root:root' | chpasswd && \
-  sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
-
 # manpages man-db manpages-dev google-perftools libgoogle-perftools-dev libprotobuf-dev libsnappy-dev lrzsz openssh-server  protobuf-compiler
   
 EXPOSE 22
 
 #ENTRYPOINT [ "/usr/sbin/sshd" ]
 
-#CMD [ "-D" ]
+CMD [ "dropbear", "-RFEmwg", "-p", "22" ]
