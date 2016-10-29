@@ -27,6 +27,9 @@ RUN mkdir -p /var/run/sshd && \
   ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key && \
   ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
 
+RUN echo 'root:root' | chpasswd && \
+  sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+
 # manpages man-db manpages-dev google-perftools libgoogle-perftools-dev libprotobuf-dev libsnappy-dev lrzsz openssh-server  protobuf-compiler
   
 EXPOSE 22
