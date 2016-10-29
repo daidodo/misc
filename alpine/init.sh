@@ -3,7 +3,7 @@ apk --no-cache add \
   bash bash-completion bash-doc \
   sudo git less \
   gcc g++ gdb gdb-doc linux-headers \
-  man-pages \
+  man man-pages \
   vim ctags \
   automake make \
   openssh-sftp-server openssh-client dropbear
