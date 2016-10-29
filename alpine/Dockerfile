@@ -8,7 +8,7 @@ ADD http://ohse.de/uwe/releases/lrzsz-0.12.20.tar.gz /tmp
 
 WORKDIR /tmp
 
-RUN chmod +x *.sh && /tmp/init.sh
+RUN chmod +x *.sh && ./init.sh
 
 # manpages man-db manpages-dev 
 # google-perftools libgoogle-perftools-dev libprotobuf-dev libsnappy-dev lrzsz   protobuf-compiler

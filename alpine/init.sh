@@ -1,5 +1,5 @@
 # install
-apk --no-cache add \
+apk --update add \
   bash bash-completion bash-doc \
   sudo git less \
   gcc g++ gdb gdb-doc linux-headers \
@@ -39,4 +39,4 @@ mkdir -p /etc/dropbear && \
   sed -ri 's/^dozerg.*/dozerg:x:1000:0::\/home\/dozerg:\/bin\/bash/' /etc/passwd
   
 # cleanup
-rm -rf *
+#rm -rf *
