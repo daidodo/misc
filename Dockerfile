@@ -34,6 +34,6 @@ RUN echo 'root:root' | chpasswd && \
   
 EXPOSE 22
 
-ENTRYPOINT [ "/usr/sbin/sshd" ]
+#ENTRYPOINT [ "/usr/sbin/sshd" ]
 
-CMD [ "-D" ]
+#CMD [ "-D" ]
