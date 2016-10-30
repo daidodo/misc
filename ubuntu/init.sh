@@ -16,13 +16,11 @@ done < 1.vimrc > ~/.vimrc
 vim +PluginInstall +qall
 
 # user & permission
-useradd dozerg -g root && \
+adduser dozerg -D -G root --shell /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
+  mv ~/sys.tags ~/.vimrc ~/.vim ~dozerg/ && \
   mkdir -p /home/dozerg/work && \
-  mv ~/sys.tags ~/.vim ~dozerg/ && \
-  cp ~/.vimrc ~/.bashrc ~dozerg/ && \
-  cp /etc/skel/.bash* /home/dozerg && \
   chown -R dozerg /home/dozerg
 
 # sshd
