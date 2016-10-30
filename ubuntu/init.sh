@@ -16,7 +16,7 @@ done < 1.vimrc > ~/.vimrc
 vim +PluginInstall +qall
 
 # user & permission
-adduser dozerg -D -G root --shell /bin/bash && \
+useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
   mv ~/sys.tags ~/.vimrc ~/.vim ~dozerg/ && \
