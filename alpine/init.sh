@@ -3,7 +3,7 @@ apk --update add \
   bash bash-completion bash-doc \
   sudo git less \
   gcc g++ gdb gdb-doc \
-  libc-dev libc-utils \
+  libgcc libgc++ libc-dev libc-utils \
   gperf gperf-doc \
   linux-headers \
   man man-pages \
