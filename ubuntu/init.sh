@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# install softwares
-#./apt-get.sh
-
 # vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-# tags & vim config
 INC=`./gen_systags.sh`
 
 while read line ; do
@@ -17,7 +13,7 @@ while read line ; do
   fi
 done < 1.vimrc > ~/.vimrc
 
-#vim +PluginInstall +qall
+vim +PluginInstall +qall
 
 # user & permission
 useradd dozerg -g root && \

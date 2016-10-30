@@ -50,4 +50,6 @@ mkdir -p /etc/dropbear && \
   
 # cleanup
 #rm -rf *
-git clone https://github.com/daidodo/marine.git /home/dozerg/marine
+git clone https://github.com/daidodo/marine.git /home/dozerg/work/marine
+git clone https://github.com/daidodo/huge-long-number.git /home/dozerg/work/huge-long-number
+chown -R dozerg /home/dozerg
