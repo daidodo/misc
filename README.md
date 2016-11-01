@@ -3,6 +3,8 @@ This image is meant to be a daily used development environment for C/C++ program
 
 If you find it useful, please drop me a message in the comments. Thanks!
 
+[![](https://images.microbadger.com/badges/image/daidodo/dev.svg)](https://microbadger.com/images/daidodo/dev "Get your own image badge on microbadger.com")
+
 ## Packages
 * git
 * GCC, g++, gdb
@@ -25,6 +27,5 @@ If you find it useful, please drop me a message in the comments. Thanks!
 `docker run -d -p 127.0.0.1:22222:22 --name dev -h dev daidodo/dev`
 ### Login
 `ssh dozerg@localhost -p 22222`
-
 
 
