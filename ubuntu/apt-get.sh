@@ -10,5 +10,6 @@ apt-get -y update && \
   protobuf-compiler libprotobuf-dev \
   libgoogle-perftools-dev google-perftools \
   libsnappy-dev \
-  openssh-server lrzsz libssl-dev libssl-doc
+  openssh-server lrzsz libssl-dev libssl-doc \
+  doxygen doxygen-doc
  

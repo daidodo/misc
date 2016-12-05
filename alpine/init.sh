@@ -11,7 +11,8 @@ apk --update add \
   automake make \
   protobuf protobuf-dev protobuf-vim \
   snappy snappy-dev snappy-doc \
-  openssh-sftp-server openssh-client dropbear
+  openssh-sftp-server openssh-client dropbear \
+  doxygen doxygen-doc
 
 # config
 if [ ! -d /etc/skel ] ; then
