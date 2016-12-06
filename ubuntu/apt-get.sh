@@ -11,5 +11,6 @@ apt-get -y update && \
   libgoogle-perftools-dev google-perftools \
   libsnappy-dev \
   openssh-server lrzsz libssl-dev libssl-doc \
-  doxygen doxygen-doc
+  doxygen doxygen-doc \
+  zip unzip
  

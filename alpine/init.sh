@@ -12,7 +12,8 @@ apk --update add \
   protobuf protobuf-dev protobuf-vim \
   snappy snappy-dev snappy-doc \
   openssh-sftp-server openssh-client dropbear \
-  doxygen doxygen-doc
+  doxygen doxygen-doc \
+  zip unzip
 
 # config
 if [ ! -d /etc/skel ] ; then
