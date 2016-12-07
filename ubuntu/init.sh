@@ -15,6 +15,9 @@ done < 1.vimrc > ~/.vimrc
 
 vim +PluginInstall +qall
 
+# YCM
+cd  ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer --gocode-completer && cd /tmp
+
 # user & permission
 useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \

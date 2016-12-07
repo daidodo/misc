@@ -12,5 +12,6 @@ apt-get -y update && \
   libsnappy-dev \
   openssh-server lrzsz libssl-dev libssl-doc \
   doxygen doxygen-doc \
-  zip unzip
+  zip unzip \
+  build-essential cmake python-dev python3-dev
  
