@@ -20,6 +20,7 @@ useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
   mv ~/sys.tags ~/.vimrc ~/.vim ~dozerg/ && \
+  mv 1.bashrc ~dozerg/.bashrc && \
   mkdir -p /home/dozerg/work && \
   chown -R dozerg /home/dozerg
 
