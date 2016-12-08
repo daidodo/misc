@@ -53,6 +53,9 @@ Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'solarnz/thrift.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'rdnetto/YCM-Generator'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 " All of your Plugins must be added before the following line
 call vundle#end() " required
@@ -71,23 +74,25 @@ filetype plugin indent on " required
 " ----End Vundle---
 
 " YCM
-let g:ycm_confirm_extra_conf = 0
+let g:ycm_confirm_extra_conf = 0    " do not show confirm when loading ycm extra conf
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_min_num_of_chars_for_completion = 3
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<c-m>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Always show the status line
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-	return 'PASTE MODE  '
-    en
-    return ''
-endfunction
 " Powered by powerline
 set laststatus=2
 let g:Powerline_symbols = 'unicode'
 " Format the status line
-"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ %y\ \ CWD:\ %r%{getcwd()}%h\ \ %p%%\ \ %{fugitive#statusline()}
-"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-set statusline=%<%f%m\ %y%r%w%{fugitive#statusline()}\ CWD:\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
+set statusline=%<%f%m\ %y%r%w\ CWD:\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
+"set statusline=%<%f%m\ %y%r%w%{fugitive#statusline()}\ CWD:\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()

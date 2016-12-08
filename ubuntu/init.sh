@@ -14,11 +14,9 @@ while read line ; do
 done < 1.vimrc > ~/.vimrc
 
 # vim plugins
-mkdir -p ~/.vim/bundle && cd ~/.vim/bundle && \
-git clone https://github.com/tpope/vim-fugitive.git && \
 vim +PluginInstall +qall
 
-# user & permission & plugins
+# user &  & plugins
 useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
@@ -31,6 +29,7 @@ useradd dozerg -m -g root -s /bin/bash && \
 mkdir -p /home/dozerg/work && \
   cd /home/dozerg/work && git clone https://github.com/daidodo/marine.git
 
+# permission
 chown -R dozerg /home/dozerg
 
 # sshd
