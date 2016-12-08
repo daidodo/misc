@@ -23,7 +23,7 @@ useradd dozerg -m -g root -s /bin/bash && \
   mv ~/sys.tags ~/.vimrc ~/.vim ~dozerg/ && \
   mv /tmp/1.bashrc ~dozerg/.bashrc && \
   mv /tmp/1.ycm_extra_conf.py ~dozerg/.ycm_extra_conf.py && \
-  cd  ~dozerg/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+  cd  ~dozerg/.vim/bundle/YouCompleteMe && ./install.py --clang-completer --system-libclang
 
 # init work directory
 mkdir -p /home/dozerg/work && \
