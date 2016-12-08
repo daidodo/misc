@@ -13,5 +13,5 @@ apt-get -y update && \
   openssh-server lrzsz libssl-dev libssl-doc \
   doxygen doxygen-doc \
   zip unzip \
-  build-essential cmake python-dev python3-dev
+  build-essential cmake python-dev python3-dev clang
  
