@@ -13,19 +13,22 @@ while read line ; do
   fi
 done < 1.vimrc > ~/.vimrc
 
+# vim plugins
+vim +PluginInstall +qall
+
 # user & permission & plugins
 useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
-  mv ~/sys.tags ~/.vimrc ~dozerg/ && \
+  mv ~/sys.tags ~/.vimrc ~/.vim ~dozerg/ && \
   mv 1.bashrc ~dozerg/.bashrc && \
-  mkdir -p /home/dozerg/work && \
-  chown -R dozerg /home/dozerg && \
-  su dozerg && \
-  vim +PluginInstall +qall && \
-  cd  ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer && \
-  cd /home/dozerg/work && git clone https://github.com/daidodo/marine.git && \
-  exit
+  mv 1.ycm_extra_conf.py ~dozerg/.ycm_extra_conf.py && \
+  cd  ~dozerg/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+
+mkdir -p /home/dozerg/work && \
+  cd /home/dozerg/work && git clone https://github.com/daidodo/marine.git
+
+chown -R dozerg /home/dozerg
 
 # sshd
 mkdir -p /var/run/sshd
