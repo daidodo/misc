@@ -13,19 +13,19 @@ while read line ; do
   fi
 done < 1.vimrc > ~/.vimrc
 
-vim +PluginInstall +qall
-
-# YCM
-cd  ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer && cd /tmp
-
-# user & permission
+# user & permission & plugins
 useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
-  mv ~/sys.tags ~/.vimrc ~/.vim ~dozerg/ && \
+  mv ~/sys.tags ~/.vimrc ~dozerg/ && \
   mv 1.bashrc ~dozerg/.bashrc && \
   mkdir -p /home/dozerg/work && \
-  chown -R dozerg /home/dozerg
+  chown -R dozerg /home/dozerg && \
+  su dozerg && \
+  vim +PluginInstall +qall && \
+  cd  ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer && \
+  cd /home/dozerg/work && git clone https://github.com/daidodo/marine.git && \
+  exit
 
 # sshd
 mkdir -p /var/run/sshd
@@ -33,4 +33,5 @@ sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin no/' /etc/ssh/sshd_config
 sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
 # clean up
+cd /tmp
 rm -f *.sh 1.*
