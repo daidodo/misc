@@ -83,15 +83,14 @@ let g:ycm_complete_in_strings = 1
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<c-m>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"let g:UltiSnipsJumpForwardTrigger="<c-i>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-y>"
 
 " Always show the status line
 " Powered by powerline
 set laststatus=2
 let g:Powerline_symbols = 'unicode'
 " Format the status line
-set statusline=%<%f%m\ %y%r%w\ CWD:\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
 "set statusline=%<%f%m\ %y%r%w%{fugitive#statusline()}\ CWD:\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
@@ -144,7 +143,7 @@ nmap M :copen<cr>
 nmap C :cclose<cr>
 nmap T :GoTest<cr>
 
-" highlight redundent spaces
+" highlight redundant spaces
 if $VIM_HATE_SPACE_ERROR != '0'
     let c_space_errors=1
 endif
