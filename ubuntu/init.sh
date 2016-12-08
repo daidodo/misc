@@ -14,6 +14,8 @@ while read line ; do
 done < 1.vimrc > ~/.vimrc
 
 # vim plugins
+mkdir -p ~/.vim/bundle && cd ~/.vim/bundle && \
+git clone https://github.com/tpope/vim-fugitive.git && \
 vim +PluginInstall +qall
 
 # user & permission & plugins
@@ -21,10 +23,11 @@ useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
   mv ~/sys.tags ~/.vimrc ~/.vim ~dozerg/ && \
-  mv 1.bashrc ~dozerg/.bashrc && \
-  mv 1.ycm_extra_conf.py ~dozerg/.ycm_extra_conf.py && \
+  mv /tmp/1.bashrc ~dozerg/.bashrc && \
+  mv /tmp/1.ycm_extra_conf.py ~dozerg/.ycm_extra_conf.py && \
   cd  ~dozerg/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
 
+# init work directory
 mkdir -p /home/dozerg/work && \
   cd /home/dozerg/work && git clone https://github.com/daidodo/marine.git
 
