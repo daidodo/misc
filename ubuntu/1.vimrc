@@ -47,10 +47,15 @@ set smartcase       " Do smart case matching
 set incsearch       " Incremental search
 set hlsearch        " Highlight all search results
 
+set fileencodings=ucs-bom,utf8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set encoding=utf8
+set ambiwidth=double    " Display certain Asian Chars widely
+
 set autoread        " auto read when a file is changed from the outside
 set autowrite       " Automatically save before commands like :next and :make
 set nowritebackup   " Turn backup off, since most stuff is in SVN, git etc anyway
 set noswapfile      " Do not use swap file
+set viminfo^=%      " Save buffer list to .viminfo and restore them if vim has no args
 
 set showmatch       " Show matching brackets.
 set number          " Show line number
@@ -67,19 +72,19 @@ set softtabstop=-1  " Number of spaces for a <Tab> while editing, -1 means same 
 set expandtab       " Use spaces to insert a <Tab>
 
 set wildmenu        " Enhanced command-line completion
-set wildignore+=*.o,*.d,tags    " Ignore certain files
+set wildignore+=*.o,*.d " Ignore certain files
+
+set spell           " Enable spell check
+set spellfile=~/work/misc/ubuntu/dict.utf8.add  " Custom dictionary
 
 set tags=tags,./tags,../tags,../../tags,../../../tags,../../../../tags,~/sys.tags
 set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
 
 " locale
-set fileencodings=ucs-bom,prc,utf8,latin1
-"set enc=utf8
-"set tenc=prc
 
-" Leader Key
-let mapleader = ","
-let g:mapleader = ","
+" Leader Key: <Space>
+let mapleader = " "
+let g:mapleader = " "
 
 " ----Begin Vundle---
 filetype off   " Disable file type detection, required
@@ -119,26 +124,32 @@ filetype plugin indent on " Enable file type detection, plugins and indent loadi
 nmap j gj
 nmap k gk
 
-" ,m    open compile window
-" ,c    close compile window
-" ,t    run GoTest
+" <leader> m    open compile window
+" <leader> c    close compile window
+" <leader> t    run GoTest
 nnoremap <unique> <leader>m :copen<cr>
 nnoremap <unique> <leader>c :cclose<cr>
 "nnoremap <leader>t :GoTest<cr>
 
-" ,p    switch to previous buffer
-" ,n    switch to next buffer
-" ,k    remove current buffer
-" ,l    list all buffers
-" t NUM jump to buffer NUM
+" <leader> p    switch to previous buffer
+" <leader> n    switch to next buffer
+" <leader> k    remove current buffer
+"" <leader> l    list all buffers
+"" t NUM jump to buffer NUM
 nnoremap <unique><silent> <leader>p :bp<cr>
 nnoremap <unique><silent> <leader>n :bn<cr>
 nnoremap <unique><silent> <leader>k :bd<cr>
-nnoremap <unique><silent> <leader>l :ls<cr>
-nnoremap <unique> t :b<Space>
+"nnoremap <unique><silent> <leader>l :ls<cr>
+"nnoremap <unique> t :b<Space>
 
-" ,T    replace all <Tab>s with 4 spaces
-nnoremap <silent> <leader>T :set ts=4<cr> :ret<cr> :set ts=8<cr>
+" <leader> t    open or close TagBar
+nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
+
+" <leader> S    toggle spell checking for current buffer
+nnoremap <unique> <leader>S :setlocal spell!<cr>
+
+"" <leader> T    replace all <Tab>s with 4 spaces
+"nnoremap <unique><silent> <leader>T :set ts=4<cr> :ret<cr> :set ts=8<cr>
 
 " press P P to show tag preview
 " press P C to close tag preview window
@@ -169,6 +180,7 @@ let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
+let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
 
 " UltiSnips
 " CTRL-B    trigger snippet expand, and jump forward
@@ -182,6 +194,14 @@ let g:airline_theme = "base16color"
 "let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" Doxygen syntax support
+let g:load_doxygen_syntax = 1
+let doxygen_my_rendering = 0
+
+" TagBar
+let g:tagbar_compact = 1
+let g:tagbar_iconchars = ['+', '-']
 
 " Delete trailing white space on save
 func! DeleteTrailingWS()
@@ -197,7 +217,17 @@ au BufWrite *.h :call DeleteTrailingWS()
 au BufWrite *.hh :call DeleteTrailingWS()
 au BufWrite *.hpp :call DeleteTrailingWS()
 
+" Return to last edit position when opening files
+au BufReadPost *
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
+
 " Highlight redundant spaces
 if $VIM_HATE_SPACE_ERROR != '0'
     let c_space_errors=1
 endif
+
+" --- Experimental---
+
+" ------------------
