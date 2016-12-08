@@ -37,6 +37,7 @@ set magic               " For regular expressions turn magic on
 set nobackup            " Turn backup off, since most stuff is in SVN, git etc anyway
 set nowb
 set noswapfile
+set cc=101              " Highlighten column after 100
 
 " ----Begin Vundle---
 filetype off
@@ -84,8 +85,9 @@ endfunction
 set laststatus=2
 let g:Powerline_symbols = 'unicode'
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ %y\ \ CWD:\ %r%{getcwd()}%h\ \ %p%%\ \ %{fugitive#statusline()}
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ %y\ \ CWD:\ %r%{getcwd()}%h\ \ %p%%\ \ %{fugitive#statusline()}
 "set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f%m\ %y%r%w%{fugitive#statusline()}\ CWD:\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
