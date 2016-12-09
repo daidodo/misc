@@ -2,7 +2,7 @@
 
 # vim & tags
 /bin/bash -c "sed -i 's#^set path=.*#&`./gen_systags.sh`#' /tmp/1.vimrc" && \
-    mv /tmp/1.vimrc ~/.vimrc && mkdir -p ~/.vim/spell && mv sysdict.utf-8.spl ~/.vim/spell/ && \
+    mv /tmp/1.vimrc ~/.vimrc && mkdir -p ~/.vim/spell && mv sysdict.ascii.spl ~/.vim/spell/ && \
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && \
     vim +PluginInstall +qall
 
