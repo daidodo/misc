@@ -5,7 +5,7 @@ apt-get -y update && \
   sudo git less \
   gcc g++ gdb gdb-doc \
   manpages man-db manpages-dev \
-  vim exuberant-ctags \
+  vim exuberant-ctags dos2unix \
   automake make\
   protobuf-compiler libprotobuf-dev \
   libgoogle-perftools-dev google-perftools \
