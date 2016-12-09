@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
 INC=`./gen_systags.sh`
 
 while read line ; do
