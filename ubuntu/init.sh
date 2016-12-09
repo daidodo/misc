@@ -22,7 +22,7 @@ mkdir -p ~/.vim/bundle && cd ~/.vim/bundle && \
   git clone --recursive https://github.com/tpope/vim-fugitive && \
   git clone --recursive https://github.com/majutsushi/tagbar
 
-# user &  & plugins
+# user
 useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
@@ -39,6 +39,9 @@ mkdir -p /home/dozerg/work && cd /home/dozerg/work && \
 
 # permission
 chown -R dozerg /home/dozerg
+
+# fix timezone
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # sshd
 mkdir -p /var/run/sshd

@@ -47,10 +47,6 @@ set smartcase       " Do smart case matching
 set incsearch       " Incremental search
 set hlsearch        " Highlight all search results
 
-set fileencodings=ucs-bom,utf8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set encoding=utf8
-set ambiwidth=double    " Display certain Asian Chars widely
-
 set autoread        " auto read when a file is changed from the outside
 set autowrite       " Automatically save before commands like :next and :make
 set nowritebackup   " Turn backup off, since most stuff is in SVN, git etc anyway
@@ -59,9 +55,9 @@ set viminfo^=%      " Save buffer list to .viminfo and restore them if vim has n
 
 set showmatch       " Show matching brackets.
 set number          " Show line number
-set cursorline      " highlighten current line
+set cursorline      " Highlight current line
 set textwidth=100   " Max line length
-set colorcolumn=101 " Highlighten column 101
+set colorcolumn=101 " Highlight column 101
 set laststatus=2    " Always show status line
 set scrolloff=3     " Minimal number of lines to keep above and below the cursor
 set listchars=tab:>-,trail:-    " When you enter :set list, TAB will shown as '>---'
@@ -72,15 +68,17 @@ set softtabstop=-1  " Number of spaces for a <Tab> while editing, -1 means same 
 set expandtab       " Use spaces to insert a <Tab>
 
 set wildmenu        " Enhanced command-line completion
-set wildignore+=*.o,*.d " Ignore certain files
+set wildignore+=*.o " Ignore certain file types for wildmenu
 
-set spell           " Enable spell check
+set fileencodings=ucs-bom,utf8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set encoding=utf8
+set ambiwidth=double    " Display certain Asian Chars widely
+set spell               " Enable spell check
 set spellfile=~/work/misc/ubuntu/dict.utf8.add  " Custom dictionary
+"au Filetype sh,vimrc,bashrc setlocal nospell  " Disable spell check for certain file types
 
 set tags=tags,./tags,../tags,../../tags,../../../tags,../../../../tags,~/sys.tags
 set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
-
-" locale
 
 " Leader Key: <Space>
 let mapleader = " "
@@ -126,7 +124,7 @@ nmap k gk
 
 " <leader> m    open compile window
 " <leader> c    close compile window
-" <leader> t    run GoTest
+"" <leader> t    run GoTest
 nnoremap <unique> <leader>m :copen<cr>
 nnoremap <unique> <leader>c :cclose<cr>
 "nnoremap <leader>t :GoTest<cr>
@@ -144,6 +142,11 @@ nnoremap <unique><silent> <leader>k :bd<cr>
 
 " <leader> t    open or close TagBar
 nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
+
+" <leader> gs   git status
+" <leader> gd   git diff
+nnoremap <unique> <leader>gs :Gstatus<cr>
+nnoremap <unique> <leader>gd :Gvdiff<cr>
 
 " <leader> S    toggle spell checking for current buffer
 nnoremap <unique> <leader>S :setlocal spell!<cr>
