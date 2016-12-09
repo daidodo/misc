@@ -12,15 +12,15 @@ done < 1.vimrc > ~/.vimrc
 
 # vim plugins
 mkdir -p ~/.vim/bundle && cd ~/.vim/bundle && \
-  git clone https://github.com/VundleVim/Vundle.vim.git && \
-  git clone https://github.com/Valloric/YouCompleteMe && \
-  git clone https://github.com/rdnetto/YCM-Generator && \
-  git clone https://github.com/SirVer/ultisnips && \
-  git clone https://github.com/honza/vim-snippets && \
-  git clone https://github.com/vim-airline/vim-airline && \
-  git clone https://github.com/vim-airline/vim-airline-themes && \
-  git clone https://github.com/tpope/vim-fugitive && \
-  git clone https://github.com/majutsushi/tagbar
+  git clone --recursive https://github.com/VundleVim/Vundle.vim.git && \
+  git clone --recursive https://github.com/Valloric/YouCompleteMe && \
+  git clone --recursive https://github.com/rdnetto/YCM-Generator && \
+  git clone --recursive https://github.com/SirVer/ultisnips && \
+  git clone --recursive https://github.com/honza/vim-snippets && \
+  git clone --recursive https://github.com/vim-airline/vim-airline && \
+  git clone --recursive https://github.com/vim-airline/vim-airline-themes && \
+  git clone --recursive https://github.com/tpope/vim-fugitive && \
+  git clone --recursive https://github.com/majutsushi/tagbar
 
 # user &  & plugins
 useradd dozerg -m -g root -s /bin/bash && \
@@ -32,10 +32,10 @@ useradd dozerg -m -g root -s /bin/bash && \
   mv /tmp/1.gitconfig ~dozerg/.gitconfig && \
   cd  ~dozerg/.vim/bundle/YouCompleteMe && ./install.py --clang-completer --system-libclang
 
-# init work directory
+# work directory
 mkdir -p /home/dozerg/work && cd /home/dozerg/work && \
-  git clone https://github.com/daidodo/marine.git && \
-  git clone https://github.com/daidodo/misc.git
+  git clone --recursive https://github.com/daidodo/marine.git && \
+  git clone --recursive https://github.com/daidodo/misc.git
 
 # permission
 chown -R dozerg /home/dozerg
