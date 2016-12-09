@@ -13,4 +13,4 @@ cpp -dN /dev/null | grep -w define | awk '{print $2}' >> 1.tmp
 
 sort -u 1.tmp > tmp.add
 
-vim "+mkspell! sysdict tmp.add" +qall
+vim "+mkspell! -ascii sysdict tmp.add" +qall

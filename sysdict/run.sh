@@ -61,6 +61,4 @@ echo "Generate with `wc -l key.tmp | awk '{print $1}'` keywords"
 
 ./dict.sh
 
-rm -rf *tmp*
-
 echo "Finish."
