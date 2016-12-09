@@ -1,3 +1,22 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Copyright (c) 2016 Zhao DAI <daidodo@gmail.com>
+"
+" This program is free software: you can redistribute it and/or modify
+" it under the terms of the GNU General Public License as published by
+" the Free Software Foundation, either version 3 of the License, or any
+" later version.
+"
+" This program is distributed in the hope that it will be useful,
+" but WITHOUT ANY WARRANTY; without even the implied warranty of
+" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+" GNU General Public License for more details.
+"
+" You should have received a copy of the GNU General Public License
+" along with this program.  If not, see accompanying file LICENSE.txt
+" or <http://www.gnu.org/licenses/>.
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " All system-wide defaults are set in $VIMRUNTIME/debian.vim (usually just
 " /usr/share/vim/vimcurrent/debian.vim) and sourced by the call to :runtime
 " you can find below. If you wish to change any of those settings, you should
@@ -10,6 +29,11 @@
 " properly set to work with the Vim-related packages available in Debian.
 runtime! debian.vim
 
+" Source a global configuration file if available
+if filereadable("/etc/vim/vimrc.local")
+    source /etc/vim/vimrc.local
+endif
+
 " Vim5 and later versions support syntax highlighting. Uncommenting the
 " following enables syntax highlighting by default.
 if has("syntax")
@@ -18,51 +42,69 @@ endif
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
-set nocp " be iMproved
-"set showcmd " Show (partial) command in status line.
-set showmode " Show the current editing mode
-set showmatch " Show matching brackets.
-set ignorecase " Do case insensitive matching
-set smartcase " Do smart case matching
-set incsearch " Incremental search
-set autowrite " Automatically save before commands like :next and :make
-set ls=2 " show status bar
-set hlsearch
-set nu
-set backspace=indent,eol,start
-set ruler               " Always show current position
-set cursorline          " highlighten current line
-set autoread            " auto read when a file is changed from the outside
-set magic               " For regular expressions turn magic on
-set nobackup            " Turn backup off, since most stuff is in SVN, git etc anyway
-set nowb
-set noswapfile
-set cc=101              " Highlighten column after 100
+set ignorecase      " Do case insensitive matching
+set smartcase       " Do smart case matching
+set incsearch       " Incremental search
+set hlsearch        " Highlight all search results
+
+set autoread        " auto read when a file is changed from the outside
+set autowrite       " Automatically save before commands like :next and :make
+set nowritebackup   " Turn backup off, since most stuff is in SVN, git etc anyway
+set noswapfile      " Do not use swap file
+
+set showmatch       " Show matching brackets.
+set number          " Show line number
+set cursorline      " highlighten current line
+set textwidth=100   " Max line length
+set colorcolumn=101 " Highlighten column 101
+set laststatus=2    " Always show status line
+set scrolloff=3     " Minimal number of lines to keep above and below the cursor
+set listchars=tab:>-,trail:-    " When you enter :set list, TAB will shown as '>---'
+
+set cindent         " Enable C language like indentation
+set shiftwidth=4    " Number of spaces to use for each step of indent
+set softtabstop=-1  " Number of spaces for a <Tab> while editing, -1 means same to 'shiftwidth'
+set expandtab       " Use spaces to insert a <Tab>
+
+set wildmenu        " Enhanced command-line completion
+set wildignore+=*.o,*.d,tags    " Ignore certain files
+
+set tags=tags,./tags,../tags,../../tags,../../../tags,../../../../tags,~/sys.tags
+set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
+
+" locale
+set fileencodings=ucs-bom,prc,utf8,latin1
+"set enc=utf8
+"set tenc=prc
+
+" Leader Key
+let mapleader = ","
+let g:mapleader = ","
 
 " ----Begin Vundle---
-filetype off
-" set the runtime path to include Vundle and initialize
+filetype off   " Disable file type detection, required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'fatih/vim-go'
+Plugin 'VundleVim/Vundle.vim'   " let Vundle manage Vundle, required
+
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'solarnz/thrift.vim'
-Plugin 'tpope/vim-fugitive'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
-" All of your Plugins must be added before the following line
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'majutsushi/tagbar'
+
+"Plugin 'fatih/vim-go'
+"Plugin 'solarnz/thrift.vim'
+
+" All of your Plugins must be added before this line
 call vundle#end() " required
-filetype plugin indent on " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
+filetype plugin indent on " Enable file type detection, plugins and indent loading, required
 " Brief help
 " :PluginList - lists configured plugins
 " :PluginInstall - installs plugins; append `!` to update or just :PluginUpdate
@@ -71,10 +113,57 @@ filetype plugin indent on " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-" ----End Vundle---
+
+" -----Normal Mode Key Mapping-----
+" Treat long lines as break lines
+nmap j gj
+nmap k gk
+
+" ,m    open compile window
+" ,c    close compile window
+" ,t    run GoTest
+nnoremap <unique> <leader>m :copen<cr>
+nnoremap <unique> <leader>c :cclose<cr>
+"nnoremap <leader>t :GoTest<cr>
+
+" ,p    switch to previous buffer
+" ,n    switch to next buffer
+" ,k    remove current buffer
+" ,l    list all buffers
+" t NUM jump to buffer NUM
+nnoremap <unique><silent> <leader>p :bp<cr>
+nnoremap <unique><silent> <leader>n :bn<cr>
+nnoremap <unique><silent> <leader>k :bd<cr>
+nnoremap <unique><silent> <leader>l :ls<cr>
+nnoremap <unique> t :b<Space>
+
+" ,T    replace all <Tab>s with 4 spaces
+nnoremap <silent> <leader>T :set ts=4<cr> :ret<cr> :set ts=8<cr>
+
+" press P P to show tag preview
+" press P C to close tag preview window
+"map PP :ptag <C-R><C-W><cr><C-w>k
+"nmap PC :pclose<cr>
+"-------------------------------
+
+" -----Input Mode Key Mapping-----
+" Keys available: (CTRL-) A B F G K L R U X Z @ ] ^
+
+" CTRL-L    add newline prior to current line
+inoremap <unique> <C-l> <C-o>O
+
+" CTRL-H    move cursor left
+" CTRL-J    move cursor down
+" CTRL-K    move cursor up
+" CTRL-L    move cursor right
+"inoremap <unique> <C-h> <C-o>h
+"inoremap <unique> <C-j> <C-o>j
+"inoremap <unique> <C-k> <C-o>k
+"inoremap <unique> <C-l> <C-o>l
+"-------------------------------
 
 " YCM
-let g:ycm_confirm_extra_conf = 0    " do not show confirm when loading ycm extra conf
+let g:ycm_confirm_extra_conf = 0 " do not show confirm when loading ycm extra conf
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_seed_identifiers_with_syntax = 1
@@ -82,96 +171,33 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<c-m>"
-"let g:UltiSnipsJumpForwardTrigger="<c-i>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-y>"
+" CTRL-B    trigger snippet expand, and jump forward
+" CTRL-V    jump backward
+let g:UltiSnipsExpandTrigger="<C-b>"
+let g:UltiSnipsJumpForwardTrigger="<C-b>"
+let g:UltiSnipsJumpBackwardTrigger="<C-v>"
 
-" Always show the status line
-" Powered by powerline
-set laststatus=2
-let g:Powerline_symbols = 'unicode'
-" Format the status line
-"set statusline=%<%f%m\ %y%r%w%{fugitive#statusline()}\ CWD:\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
+" vim-airline
+let g:airline_theme = "base16color"
+"let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+" Delete trailing white space on save
 func! DeleteTrailingWS()
     exe "normal mz"
-    %s/\s\+$//ge
+    %s/s+$//ge
     exe "normal `z"
 endfunc
-autocmd BufWrite *.c :call DeleteTrailingWS()
-autocmd BufWrite *.cpp :call DeleteTrailingWS()
-autocmd BufWrite *.cc :call DeleteTrailingWS()
-autocmd BufWrite *.cxx :call DeleteTrailingWS()
-autocmd BufWrite *.h :call DeleteTrailingWS()
-autocmd BufWrite *.hh :call DeleteTrailingWS()
-autocmd BufWrite *.hpp :call DeleteTrailingWS()
-autocmd BufWrite *.sh :call DeleteTrailingWS()
-autocmd BufWrite *.py :call DeleteTrailingWS()
+au BufWrite *.c :call DeleteTrailingWS()
+au BufWrite *.cpp :call DeleteTrailingWS()
+au BufWrite *.cc :call DeleteTrailingWS()
+au BufWrite *.cxx :call DeleteTrailingWS()
+au BufWrite *.h :call DeleteTrailingWS()
+au BufWrite *.hh :call DeleteTrailingWS()
+au BufWrite *.hpp :call DeleteTrailingWS()
 
-" locale
-set fencs=ucs-bom,prc,latin1
-"set enc=utf8
-"set tenc=prc
-
-set tags=tags,./tags,../tags,../../tags,../../../tags,../../../../tags,~/sys.tags
-
-set path=.,..,../..,../../..,marine,./marine,../marine,../../marine,/usr/include/c++/5,/usr/include/x86_64-linux-gnu/c++/5,/usr/include/c++/5/backward,/usr/lib/gcc/x86_64-linux-gnu/5/include,/usr/local/include,/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed,/usr/include/x86_64-linux-gnu,/usr/include
-
-set listchars=tab:>-,trail:- "when you enter 'set list', TAB will shown as '>---'
-
-au Filetype c,cpp,h,go,thrift set tabstop=4 "when you click TAB,indent 4 character in source file
-au Filetype sh set tabstop=2 "when you click TAB,indent 2 character in shell scripts
-au Filetype c,cpp,h,sh,thrift set expandtab "use <space> replace <Tab>
-
-"au Filetype c,cpp,h set tw=80 "warp when more than 80 characters
-
-" indentation
-set cindent shiftwidth=4
-au Filetype sh set cindent shiftwidth=2
-filetype indent on
-
-" press P P to show tag preview
-" press P C to close tag preview window
-map PP :ptag <C-R><C-W><cr><C-w>k
-nmap PC :pclose<cr>
-
-" press M to open compile window
-" press C to close compile window
-"nmap M :w<cr>:!make<cr><Esc>:copen<cr>
-nmap M :copen<cr>
-nmap C :cclose<cr>
-nmap T :GoTest<cr>
-
-" highlight redundant spaces
+" Highlight redundant spaces
 if $VIM_HATE_SPACE_ERROR != '0'
     let c_space_errors=1
-endif
-
-" buffers operatrions:
-" ctrl-n switch to next buffer
-" ctrl-p switch to previous buffer
-" ctrl-l list all buffers
-" ctrl-k remove current buffer
-nmap <silent><C-n> :bn<cr>
-nmap <silent><C-p> :bp<cr>
-nmap <C-l> :ls<cr>
-nmap <C-k> :bd<cr>
-" t NUM jump to buffer NUM
-nmap t :b<Space>
-
-" override TAB in normal mode
-nmap <tab> a<tab>
-
-" Input Mode override:
-" ctrl-l add newline prior to current line
-imap <C-l> <C-o>O
-" ctrl-w switch between windows
-imap <C-w> <C-o><C-w>w
-" ctrl-c back to normal mode and save
-imap <C-c> <ESC>:w<cr>
-
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-    source /etc/vim/vimrc.local
 endif
