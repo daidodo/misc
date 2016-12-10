@@ -70,6 +70,13 @@ set shiftwidth=4    " Number of spaces to use for each step of indent
 set softtabstop=-1  " Number of spaces for a <Tab> while editing, -1 means same to 'shiftwidth'
 set expandtab       " Use spaces to insert a <Tab>
 au Filetype vim,sh,vimrc,bashrc setlocal shiftwidth=2  " TAB width for scripts
+" C/C++ code styles:
+" g0    public/protected/private do not indent.
+" l1    codes inside 'case N:{' indent 1 shiftwidth.
+" (0    codes inside '(' indent 1 shiftwidth for each '('.
+" W1s   the first argument of a function indents 1 shiftwidth.
+" N-s   codes inside a namespace do not indent. (Not applied)
+set cinoptions=g0,l1,(0,W1s
 
 set fileencodings=ucs-bom,utf8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set encoding=utf-8
@@ -103,6 +110,8 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 
 Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
+
 Plugin 'kien/ctrlp.vim'
 
 " All of your Plugins must be added before this line
@@ -137,8 +146,8 @@ nnoremap <unique><silent> <leader>k :bd<cr>
 nnoremap <unique><silent> <leader>B :call BufOnly()<cr>
 
 " YouCompleteMe
-" <leader> f    goto definition or declaration of current tag
-nnorema <unique> <leader>f :YcmCompleter GoToDefinitionElseDeclaration<cr>
+" CTRL-]        goto definition or declaration of current tag
+nnorema <unique> <C-]> :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
 " TagBar
 " <leader> t    open or close TagBar
@@ -154,9 +163,11 @@ nnoremap <unique> <leader>gd :Gvdiff<cr>
 " <leader> d    generate doxygen comments for class, func, etc.
 " <leader> df   generate doxygen comments for file
 " <leader> dl   generate licence statement
+" <leader> db   generate block comment
 nnoremap <unique> <leader>d :Dox<cr>
 nnoremap <unique> <leader>df :DoxAuthor<cr>
 nnoremap <unique> <leader>dl :DoxLic<cr>
+nnoremap <unique> <leader>db :DoxBlock<cr>
 
 " <leader> S    toggle spell checking for current buffer
 nnoremap <unique> <leader>S :set spell!<cr>
@@ -175,13 +186,13 @@ inoremap <unique> <C-k> <del>
 
 " YCM
 let g:ycm_confirm_extra_conf = 0 " do not show confirm when loading ycm extra conf
-let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
-let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
-"let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_global_ycm_extra_conf="~/.ycm_extra_conf.py"
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_key_invoke_completion = "<C-n>"
 
 " UltiSnips
 " CTRL-B    trigger snippet expand, and jump forward
@@ -208,21 +219,24 @@ let g:tagbar_compact = 1
 let g:tagbar_iconchars = ['+','-']
 
 " CtrlP
-let g:ctrlp_match_window="order:ttb" 
+let g:ctrlp_match_window="order:ttb"
+let g:ctrlp_follow_symlinks = 1
 
-" Delete trailing white space on save
+" NERD Tree
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI=1 
+let g:NERDTreeWinPos="right"
+let g:NERDTreeDirArrowExpandable = "+"
+let g:NERDTreeDirArrowCollapsible = "-"
+
+" Delete trailing white space on save for C/C++ source
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-au BufWrite *.c :call DeleteTrailingWS()
-au BufWrite *.cpp :call DeleteTrailingWS()
-au BufWrite *.cc :call DeleteTrailingWS()
-au BufWrite *.cxx :call DeleteTrailingWS()
-au BufWrite *.h :call DeleteTrailingWS()
-au BufWrite *.hh :call DeleteTrailingWS()
-au BufWrite *.hpp :call DeleteTrailingWS()
+au BufWrite *.c,*.cpp,*.cc,*.cxx,*.h,*.hh,*.hpp :call DeleteTrailingWS()
 
 " Return to last edit position when opening files
 au BufReadPost *
@@ -269,7 +283,17 @@ function! BufOnly()
   endif
 endfunction
 
+" Start NERD Tree when execute 'vim' or 'vim A_DIR'
+au StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+" Close Vim if the only window left open is a NERD Tree
+au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
 " --- Experimental---
+
 "inoremap <unique> { {};<left><left>
 inoremap <unique> {<cr> {<cr>}<C-o>O
 inoremap <unique><silent> } <C-r>=ClosePair('}')<cr>
@@ -315,4 +339,8 @@ endfunction
 "" t NUM jump to buffer NUM
 "nnoremap <unique><silent> <leader>l :ls<cr>
 "nnoremap <unique> t :b<Space>
+
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_collect_identifiers_from_tags_files = 0
+
 " ------------------
