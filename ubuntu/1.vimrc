@@ -34,7 +34,7 @@ if filereadable("/etc/vim/vimrc.local")
     source /etc/vim/vimrc.local
 endif
 
-" Vim5 and later versions support syntax highlighting. Uncommenting the
+" Vim 5 and later versions support syntax highlighting. Uncomment the
 " following enables syntax highlighting by default.
 if has("syntax")
     syntax on
@@ -46,6 +46,8 @@ set ignorecase      " Do case insensitive matching
 set smartcase       " Do smart case matching
 set incsearch       " Incremental search
 set hlsearch        " Highlight all search results
+set wildmenu        " Enhanced command-line completion
+set wildignore+=*.o " Ignore certain file types for wildmenu
 
 set autoread        " auto read when a file is changed from the outside
 set autowrite       " Automatically save before commands like :next and :make
@@ -59,23 +61,21 @@ set cursorline      " Highlight current line
 set textwidth=100   " Max line length
 set colorcolumn=101 " Highlight column 101
 set laststatus=2    " Always show status line
+set cmdheight=2     " Command line height
 set scrolloff=3     " Minimal number of lines to keep above and below the cursor
 set listchars=tab:>-,trail:-    " When you enter :set list, TAB will shown as '>---'
 
-set cindent         " Enable C language like indentation
+set cindent         " Enable C/C++/Java like indentation
 set shiftwidth=4    " Number of spaces to use for each step of indent
 set softtabstop=-1  " Number of spaces for a <Tab> while editing, -1 means same to 'shiftwidth'
 set expandtab       " Use spaces to insert a <Tab>
 
-set wildmenu        " Enhanced command-line completion
-set wildignore+=*.o " Ignore certain file types for wildmenu
-
 set fileencodings=ucs-bom,utf8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set encoding=utf8
+set encoding=utf-8
 set ambiwidth=double    " Display certain Asian Chars widely
 set spell               " Enable spell check
-set spellfile=~/work/misc/ubuntu/dict.utf8.add  " Custom dictionary
-"au Filetype sh,vimrc,bashrc setlocal nospell  " Disable spell check for certain file types
+set spellfile=~/work/misc/ubuntu/dict.utf-8.add  " Custom dictionary
+set spelllang+=sysdict  " Add dictionary for C/C++ and system headers
 
 set tags=tags,./tags,../tags,../../tags,../../../tags,../../../../tags,~/sys.tags
 set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
@@ -102,9 +102,6 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'majutsushi/tagbar'
 
-"Plugin 'fatih/vim-go'
-"Plugin 'solarnz/thrift.vim'
-
 " All of your Plugins must be added before this line
 call vundle#end() " required
 filetype plugin indent on " Enable file type detection, plugins and indent loading, required
@@ -124,56 +121,41 @@ nmap k gk
 
 " <leader> m    open compile window
 " <leader> c    close compile window
-"" <leader> t    run GoTest
 nnoremap <unique> <leader>m :copen<cr>
 nnoremap <unique> <leader>c :cclose<cr>
-"nnoremap <leader>t :GoTest<cr>
 
 " <leader> p    switch to previous buffer
 " <leader> n    switch to next buffer
 " <leader> k    remove current buffer
-"" <leader> l    list all buffers
-"" t NUM jump to buffer NUM
 nnoremap <unique><silent> <leader>p :bp<cr>
 nnoremap <unique><silent> <leader>n :bn<cr>
 nnoremap <unique><silent> <leader>k :bd<cr>
-"nnoremap <unique><silent> <leader>l :ls<cr>
-"nnoremap <unique> t :b<Space>
 
+" YouCompleteMe
+" <leader> f    goto definition or declaration of current tag
+nnorema <unique> <leader>f :YcmCompleter GoToDefinitionElseDeclaration<cr>
+
+" TagBar
 " <leader> t    open or close TagBar
 nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
 
-" <leader> gs   git status
+" fugitive
+" <leader> g    git status
 " <leader> gd   git diff
-nnoremap <unique> <leader>gs :Gstatus<cr>
+nnoremap <unique> <leader>g :Gstatus<cr>
 nnoremap <unique> <leader>gd :Gvdiff<cr>
 
 " <leader> S    toggle spell checking for current buffer
-nnoremap <unique> <leader>S :setlocal spell!<cr>
-
-"" <leader> T    replace all <Tab>s with 4 spaces
-"nnoremap <unique><silent> <leader>T :set ts=4<cr> :ret<cr> :set ts=8<cr>
-
-" press P P to show tag preview
-" press P C to close tag preview window
-"map PP :ptag <C-R><C-W><cr><C-w>k
-"nmap PC :pclose<cr>
+nnoremap <unique> <leader>S :set spell!<cr>
 "-------------------------------
 
 " -----Input Mode Key Mapping-----
 " Keys available: (CTRL-) A B F G K L R U X Z @ ] ^
 
 " CTRL-L    add newline prior to current line
+" CTRL-K    delete the character under the cursor, same as <Del>
 inoremap <unique> <C-l> <C-o>O
-
-" CTRL-H    move cursor left
-" CTRL-J    move cursor down
-" CTRL-K    move cursor up
-" CTRL-L    move cursor right
-"inoremap <unique> <C-h> <C-o>h
-"inoremap <unique> <C-j> <C-o>j
-"inoremap <unique> <C-k> <C-o>k
-"inoremap <unique> <C-l> <C-o>l
+inoremap <unique> <C-k> <del>
 "-------------------------------
 
 " YCM
@@ -184,6 +166,7 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 " UltiSnips
 " CTRL-B    trigger snippet expand, and jump forward
@@ -204,7 +187,7 @@ let doxygen_my_rendering = 0
 
 " TagBar
 let g:tagbar_compact = 1
-let g:tagbar_iconchars = ['+', '-']
+let g:tagbar_iconchars = ['+','-']
 
 " Delete trailing white space on save
 func! DeleteTrailingWS()
@@ -232,5 +215,49 @@ if $VIM_HATE_SPACE_ERROR != '0'
 endif
 
 " --- Experimental---
+inoremap <unique> { {};<left><left>
+inoremap <unique> {<cr> {<cr>}<C-o>O
+inoremap <unique><silent> } <C-r>=ClosePair('}')<cr>
+inoremap <unique> [ []<left>
+inoremap <unique><silent> ] <C-r>=ClosePair(']')<cr>
+inoremap <unique> ( ()<left>
+inoremap <unique><silent> ) <C-r>=ClosePair(')')<cr>
+function! ClosePair(char)
+    if getline('.')[col('.')-1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endfunction
 
+"au Filetype sh,vimrc,bashrc setlocal nospell  " Disable spell check for certain file types
+"set completeopt=longest,menu
+
+"Plugin 'fatih/vim-go'
+"Plugin 'solarnz/thrift.vim'
+
+"" <leader> t    run GoTest
+"nnoremap <leader>t :GoTest<cr>
+
+"" <leader> T    replace all <Tab>s with 4 spaces
+"nnoremap <unique><silent> <leader>T :set ts=4<cr> :ret<cr> :set ts=8<cr>
+
+" press P P to show tag preview
+" press P C to close tag preview window
+"map PP :ptag <C-R><C-W><cr><C-w>k
+"nmap PC :pclose<cr>
+
+" CTRL-H    move cursor left
+" CTRL-J    move cursor down
+" CTRL-K    move cursor up
+" CTRL-L    move cursor right
+"inoremap <unique> <C-h> <C-o>h
+"inoremap <unique> <C-j> <C-o>j
+"inoremap <unique> <C-k> <C-o>k
+"inoremap <unique> <C-l> <C-o>l
+
+"" <leader> l    list all buffers
+"" t NUM jump to buffer NUM
+"nnoremap <unique><silent> <leader>l :ls<cr>
+"nnoremap <unique> t :b<Space>
 " ------------------
