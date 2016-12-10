@@ -31,13 +31,13 @@ runtime! debian.vim
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
-    source /etc/vim/vimrc.local
+  source /etc/vim/vimrc.local
 endif
 
 " Vim 5 and later versions support syntax highlighting. Uncomment the
 " following enables syntax highlighting by default.
 if has("syntax")
-    syntax on
+  syntax on
 endif
 
 " The following are commented out as they cause vim to behave a lot
@@ -69,6 +69,7 @@ set cindent         " Enable C/C++/Java like indentation
 set shiftwidth=4    " Number of spaces to use for each step of indent
 set softtabstop=-1  " Number of spaces for a <Tab> while editing, -1 means same to 'shiftwidth'
 set expandtab       " Use spaces to insert a <Tab>
+au Filetype vim,sh,vimrc,bashrc setlocal shiftwidth=2  " TAB width for scripts
 
 set fileencodings=ucs-bom,utf8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set encoding=utf-8
@@ -95,16 +96,14 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'daidodo/DoxygenToolkit.vim'
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 
 Plugin 'majutsushi/tagbar'
-
 Plugin 'kien/ctrlp.vim'
-
-Plugin 'daidodo/DoxygenToolkit.vim'
 
 " All of your Plugins must be added before this line
 call vundle#end() " required
@@ -200,10 +199,8 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " Doxygen
 let g:load_doxygen_syntax = 1
 let doxygen_my_rendering = 0
-let g:DoxygenToolkit_compactDoc="yes"
 let g:DoxygenToolkit_authorName="Zhao DAI"
 let g:DoxygenToolkit_authorMail="daidodo@gmail.com"
-let g:DoxygenToolkit_versionString="1.0"
 let g:DoxygenToolkit_licenseFile="COPYING"
 
 " TagBar
@@ -215,9 +212,9 @@ let g:ctrlp_match_window="order:ttb"
 
 " Delete trailing white space on save
 func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
 endfunc
 au BufWrite *.c :call DeleteTrailingWS()
 au BufWrite *.cpp :call DeleteTrailingWS()
@@ -229,51 +226,51 @@ au BufWrite *.hpp :call DeleteTrailingWS()
 
 " Return to last edit position when opening files
 au BufReadPost *
-            \ if line("'\"") > 0 && line("'\"") <= line("$") |
-            \   exe "normal! g`\"" |
-            \ endif
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
 
 " Highlight redundant spaces
 if $VIM_HATE_SPACE_ERROR != '0'
-    let c_space_errors=1
+  let c_space_errors=1
 endif
 
 function! BufOnly()
-    let buffer = bufnr('%')
-    if buffer == -1
+  let buffer = bufnr('%')
+  if buffer == -1
+    echohl ErrorMsg
+    echomsg "No matching buffer for" a:buffer
+    echohl None
+    return
+  endif
+  let last_buffer = bufnr('$')
+  let delete_count = 0
+  let n = 1
+  while n <= last_buffer
+    if n != buffer && buflisted(n)
+      if getbufvar(n, '&modified')
         echohl ErrorMsg
-        echomsg "No matching buffer for" a:buffer
+        echomsg 'No write since last change for buffer'
+              \ n '(add ! to override)'
         echohl None
-        return
-    endif
-    let last_buffer = bufnr('$')
-    let delete_count = 0
-    let n = 1
-    while n <= last_buffer
-        if n != buffer && buflisted(n)
-            if getbufvar(n, '&modified')
-                echohl ErrorMsg
-                echomsg 'No write since last change for buffer'
-                            \ n '(add ! to override)'
-                echohl None
-            else
-                silent exe 'bdel' . '' . ' ' . n
-                if ! buflisted(n)
-                    let delete_count = delete_count+1
-                endif
-            endif
+      else
+        silent exe 'bdel' . '' . ' ' . n
+        if ! buflisted(n)
+          let delete_count = delete_count+1
         endif
-        let n = n+1
-    endwhile
-    if delete_count == 1
-        echomsg delete_count "buffer deleted"
-    elseif delete_count > 1
-        echomsg delete_count "buffers deleted"
+      endif
     endif
+    let n = n+1
+  endwhile
+  if delete_count == 1
+    echomsg delete_count "buffer deleted"
+  elseif delete_count > 1
+    echomsg delete_count "buffers deleted"
+  endif
 endfunction
 
 " --- Experimental---
-inoremap <unique> { {};<left><left>
+"inoremap <unique> { {};<left><left>
 inoremap <unique> {<cr> {<cr>}<C-o>O
 inoremap <unique><silent> } <C-r>=ClosePair('}')<cr>
 inoremap <unique> [ []<left>
@@ -281,11 +278,11 @@ inoremap <unique><silent> ] <C-r>=ClosePair(']')<cr>
 inoremap <unique> ( ()<left>
 inoremap <unique><silent> ) <C-r>=ClosePair(')')<cr>
 function! ClosePair(char)
-    if getline('.')[col('.')-1] == a:char
-        return "\<Right>"
-    else
-        return a:char
-    endif
+  if getline('.')[col('.')-1] == a:char
+    return "\<Right>"
+  else
+    return a:char
+  endif
 endfunction
 
 "au Filetype sh,vimrc,bashrc setlocal nospell  " Disable spell check for certain file types
