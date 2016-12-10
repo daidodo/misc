@@ -102,6 +102,8 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'majutsushi/tagbar'
 
+Plugin 'kien/ctrlp.vim'
+
 " All of your Plugins must be added before this line
 call vundle#end() " required
 filetype plugin indent on " Enable file type detection, plugins and indent loading, required
@@ -140,13 +142,16 @@ nnorema <unique> <leader>f :YcmCompleter GoToDefinitionElseDeclaration<cr>
 nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
 
 " fugitive
-" <leader> g    git status
-" <leader> gd   git diff
+" <leader> g   git status
 nnoremap <unique> <leader>g :Gstatus<cr>
-nnoremap <unique> <leader>gd :Gvdiff<cr>
+
+" CtrlP
+" <leader> P    search for files in a certain directory
+nnoremap <unique> <leader>P :CtrlP 
 
 " <leader> S    toggle spell checking for current buffer
 nnoremap <unique> <leader>S :set spell!<cr>
+
 "-------------------------------
 
 " -----Input Mode Key Mapping-----
@@ -156,6 +161,7 @@ nnoremap <unique> <leader>S :set spell!<cr>
 " CTRL-K    delete the character under the cursor, same as <Del>
 inoremap <unique> <C-l> <C-o>O
 inoremap <unique> <C-k> <del>
+
 "-------------------------------
 
 " YCM
@@ -166,7 +172,7 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
-let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
 
 " UltiSnips
 " CTRL-B    trigger snippet expand, and jump forward
@@ -188,6 +194,9 @@ let doxygen_my_rendering = 0
 " TagBar
 let g:tagbar_compact = 1
 let g:tagbar_iconchars = ['+','-']
+
+" CtrlP
+let g:ctrlp_match_window="order:ttb" 
 
 " Delete trailing white space on save
 func! DeleteTrailingWS()
