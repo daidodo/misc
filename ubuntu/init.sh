@@ -14,7 +14,9 @@ while read line ; do
 done < 1.vimrc > ~/.vimrc
 
 # vim plugins
-vim +PluginInstall +qall
+mkdir -p ~/.vim/bundle && cd ~/.vim/bundle && \
+  git clone https://github.com/VundleVim/Vundle.vim.git && \
+  vim +PluginInstall +qall
 
 # user &  & plugins
 useradd dozerg -m -g root -s /bin/bash && \
