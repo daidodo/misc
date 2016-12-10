@@ -16,7 +16,14 @@ done < 1.vimrc > ~/.vimrc
 # vim plugins
 mkdir -p ~/.vim/bundle && cd ~/.vim/bundle && \
   git clone https://github.com/VundleVim/Vundle.vim.git && \
-  vim +PluginInstall +qall
+  git clone https://github.com/Valloric/YouCompleteMe && \
+  git clone https://github.com/rdnetto/YCM-Generator && \
+  git clone https://github.com/SirVer/ultisnips && \
+  git clone https://github.com/honza/vim-snippets && \
+  git clone https://github.com/vim-airline/vim-airline && \
+  git clone https://github.com/vim-airline/vim-airline-themes && \
+  git clone https://github.com/tpope/vim-fugitive && \
+  git clone https://github.com/majutsushi/tagbar
 
 # user &  & plugins
 useradd dozerg -m -g root -s /bin/bash && \
