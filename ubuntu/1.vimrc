@@ -104,6 +104,8 @@ Plugin 'majutsushi/tagbar'
 
 Plugin 'kien/ctrlp.vim'
 
+Plugin 'daidodo/DoxygenToolkit.vim'
+
 " All of your Plugins must be added before this line
 call vundle#end() " required
 filetype plugin indent on " Enable file type detection, plugins and indent loading, required
@@ -128,10 +130,12 @@ nnoremap <unique> <leader>c :cclose<cr>
 
 " <leader> p    switch to previous buffer
 " <leader> n    switch to next buffer
-" <leader> k    remove current buffer
+" <leader> k    unload current buffer
+" <leader> B    unload all buffers but current one
 nnoremap <unique><silent> <leader>p :bp<cr>
 nnoremap <unique><silent> <leader>n :bn<cr>
 nnoremap <unique><silent> <leader>k :bd<cr>
+nnoremap <unique><silent> <leader>B :call BufOnly()<cr>
 
 " YouCompleteMe
 " <leader> f    goto definition or declaration of current tag
@@ -147,9 +151,13 @@ nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
 nnoremap <unique> <leader>g :Gstatus<cr>
 nnoremap <unique> <leader>gd :Gvdiff<cr>
 
-" CtrlP
-" <leader> P    search for files in a certain directory
-nnoremap <unique> <leader>P :CtrlP 
+" DoxygenToolkit
+" <leader> d    generate doxygen comments for class, func, etc.
+" <leader> df   generate doxygen comments for file
+" <leader> dl   generate licence statement
+nnoremap <unique> <leader>d :Dox<cr>
+nnoremap <unique> <leader>df :DoxAuthor<cr>
+nnoremap <unique> <leader>dl :DoxLic<cr>
 
 " <leader> S    toggle spell checking for current buffer
 nnoremap <unique> <leader>S :set spell!<cr>
@@ -189,9 +197,14 @@ let g:airline_theme = "base16color"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-" Doxygen syntax support
+" Doxygen
 let g:load_doxygen_syntax = 1
 let doxygen_my_rendering = 0
+let g:DoxygenToolkit_compactDoc="yes"
+let g:DoxygenToolkit_authorName="Zhao DAI"
+let g:DoxygenToolkit_authorMail="daidodo@gmail.com"
+let g:DoxygenToolkit_versionString="1.0"
+let g:DoxygenToolkit_licenseFile="COPYING"
 
 " TagBar
 let g:tagbar_compact = 1
@@ -203,7 +216,7 @@ let g:ctrlp_match_window="order:ttb"
 " Delete trailing white space on save
 func! DeleteTrailingWS()
     exe "normal mz"
-    %s/s+$//ge
+    %s/\s\+$//ge
     exe "normal `z"
 endfunc
 au BufWrite *.c :call DeleteTrailingWS()
@@ -224,6 +237,40 @@ au BufReadPost *
 if $VIM_HATE_SPACE_ERROR != '0'
     let c_space_errors=1
 endif
+
+function! BufOnly()
+    let buffer = bufnr('%')
+    if buffer == -1
+        echohl ErrorMsg
+        echomsg "No matching buffer for" a:buffer
+        echohl None
+        return
+    endif
+    let last_buffer = bufnr('$')
+    let delete_count = 0
+    let n = 1
+    while n <= last_buffer
+        if n != buffer && buflisted(n)
+            if getbufvar(n, '&modified')
+                echohl ErrorMsg
+                echomsg 'No write since last change for buffer'
+                            \ n '(add ! to override)'
+                echohl None
+            else
+                silent exe 'bdel' . '' . ' ' . n
+                if ! buflisted(n)
+                    let delete_count = delete_count+1
+                endif
+            endif
+        endif
+        let n = n+1
+    endwhile
+    if delete_count == 1
+        echomsg delete_count "buffer deleted"
+    elseif delete_count > 1
+        echomsg delete_count "buffers deleted"
+    endif
+endfunction
 
 " --- Experimental---
 inoremap <unique> { {};<left><left>
