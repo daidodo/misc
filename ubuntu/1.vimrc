@@ -142,8 +142,10 @@ nnorema <unique> <leader>f :YcmCompleter GoToDefinitionElseDeclaration<cr>
 nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
 
 " fugitive
-" <leader> g   git status
+" <leader> g    git status
+" <leader> gd   git diff
 nnoremap <unique> <leader>g :Gstatus<cr>
+nnoremap <unique> <leader>gd :Gvdiff<cr>
 
 " CtrlP
 " <leader> P    search for files in a certain directory
