@@ -80,7 +80,7 @@ au Filetype vim,sh,vimrc,bashrc setlocal shiftwidth=2  " TAB width for scripts
 " N-s   codes inside a namespace do not indent. (Not applied)
 set cinoptions=g0,l1,(0,W1s
 
-set fileencodings=ucs-bom,utf8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set fileencodings=ucs-bom,utf8,cp936,gb2312,gbk,gb18030,big5,euc-jp,euc-kr,latin1
 set encoding=utf-8
 set ambiwidth=double    " Display certain Asian Chars widely
 set spell               " Enable spell check
@@ -106,6 +106,7 @@ Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'daidodo/DoxygenToolkit.vim'
+Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -179,9 +180,9 @@ nnoremap <unique> <leader>db :DoxBlock<cr>
 " incsearch-fuzzy-easymotion
 " Note: Backward search (?) cannot be fuzzy because of a bug:
 " Without {'is_stay': 1}, highlight doesn't function.
-noremap <silent><expr> /  incsearch#go(<SID>config_easyfuzzymotion())
-noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
-noremap <silent><expr> g/ incsearch#go(<SID>config_easyfuzzymotion({'is_stay': 1}))
+noremap <unique><silent><expr> /  incsearch#go(<SID>config_easyfuzzymotion())
+noremap <unique><silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <unique><silent><expr> g/ incsearch#go(<SID>config_easyfuzzymotion({'is_stay': 1}))
 function! s:incsearch_config(...) abort
   return extend(copy({
   \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
@@ -254,6 +255,11 @@ let g:NERDTreeMinimalUI=1
 let g:NERDTreeWinPos="right"
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="-"
+
+" NERD Commenter
+let g:NERDTrimTrailingWhitespace=1
+let g:NERDDefaultNesting=0
+let g:NERDDefaultAlign='left'
 
 " Delete trailing white space on save for C/C++ source
 func! DeleteTrailingWS()
@@ -374,4 +380,7 @@ let g:EasyMotion_smartcase=1
 
 "let g:airline_powerline_fonts=1
 
+"let g:NERDSpaceDelims=1
+"let g:NERDRemoveExtraSpaces=1
+"
 " ------------------
