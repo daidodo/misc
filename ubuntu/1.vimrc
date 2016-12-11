@@ -54,7 +54,6 @@ set autoread        " auto read when a file is changed from the outside
 set autowrite       " Automatically save before commands like :next and :make
 set nowritebackup   " Turn backup off, since most stuff is in SVN, git etc anyway
 set noswapfile      " Do not use swap file
-set viminfo^=%      " Save buffer list to .viminfo and restore them if vim has no args
 
 set showmatch       " Show matching brackets.
 set number          " Show line number
@@ -133,7 +132,7 @@ filetype plugin indent on " Enable file type detection, plugins and indent loadi
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" -----Normal Mode Key Mapping-----
+" ---------- Normal Mode Key Mapping ---------
 
 " Treat long lines as break lines
 nmap j gj
@@ -180,28 +179,15 @@ nnoremap <unique> <leader>db :DoxBlock<cr>
 " incsearch-fuzzy-easymotion
 " Note: Backward search (?) cannot be fuzzy because of a bug:
 " Without {'is_stay': 1}, highlight doesn't function.
-noremap <unique><silent><expr> /  incsearch#go(<SID>config_easyfuzzymotion())
-noremap <unique><silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
-noremap <unique><silent><expr> g/ incsearch#go(<SID>config_easyfuzzymotion({'is_stay': 1}))
-function! s:incsearch_config(...) abort
-  return extend(copy({
-  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-  \   'is_expr': 0
-  \ }), get(a:, 1, {}))
-endfunction
-function! s:config_easyfuzzymotion(...) abort
-  return s:incsearch_config(extend(copy({
-  \   'converters': [incsearch#config#fuzzyword#converter()],
-  \ }), get(a:, 1, {})))
-endfunction
+noremap <unique><silent><expr> /  incsearch#go(<SID>fuzzysearch())
+noremap <unique><silent><expr> ?  incsearch#go(<SID>incsearch({'command': '?'}))
+noremap <unique><silent><expr> g/ incsearch#go(<SID>fuzzysearch({'is_stay': 1}))
 
 " <leader> S    toggle spell checking for current buffer
 nnoremap <unique> <leader>S :set spell!<cr>
 
-"-------------------------------
+" ---------- Input Mode Key Mapping ---------
 
-" -----Input Mode Key Mapping-----
 " Keys available: (CTRL-) A B F G K L R U X Z @ ] ^
 
 " CTRL-L    add newline prior to current line
@@ -209,7 +195,12 @@ nnoremap <unique> <leader>S :set spell!<cr>
 inoremap <unique> <C-l> <C-o>O
 inoremap <unique> <C-k> <del>
 
-"-------------------------------
+"---------- Global Variables ---------
+
+" Highlight redundant spaces
+if $VIM_HATE_SPACE_ERROR != '0'
+  let c_space_errors=1
+endif
 
 " YCM
 let g:ycm_confirm_extra_conf=0
@@ -261,24 +252,27 @@ let g:NERDTrimTrailingWhitespace=1
 let g:NERDDefaultNesting=0
 let g:NERDDefaultAlign='left'
 
+"---------- Auto Commands ---------
+
 " Delete trailing white space on save for C/C++ source
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-au BufWrite *.{c,cc,cpp,cxx,h,hh,hpp,hxx} :call DeleteTrailingWS()
+au BufWrite *.{c,cc,cpp,cxx,h,hh,hpp,hxx} exe "normal mz" | %s/\s\+$//ge | exe "normal `z"
 
 " Return to last edit position when opening files
-au BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal! g`\"" |
-      \ endif
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-" Highlight redundant spaces
-if $VIM_HATE_SPACE_ERROR != '0'
-  let c_space_errors=1
-endif
+" Start NERD Tree when execute 'vim' or 'vim A_DIR'
+au StdinReadPre * let s:std_in=1
+au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") |
+      \ exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+" Close Vim if the only window left is a NERD Tree
+au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Split help window to the right
+au FileType help wincmd L
+
+"---------- Functions ---------
 
 function! BufOnly()
   let buffer = bufnr('%')
@@ -314,17 +308,21 @@ function! BufOnly()
   endif
 endfunction
 
-" Start NERD Tree when execute 'vim' or 'vim A_DIR'
-au StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-" Close Vim if the only window left is a NERD Tree
-au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+function! s:incsearch(...) abort
+  return extend(copy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
 
-" Split help window to the right
-autocmd FileType help wincmd L
+function! s:fuzzysearch(...) abort
+  return s:incsearch_config(extend(copy({
+  \   'converters': [incsearch#config#fuzzyword#converter()],
+  \ }), get(a:, 1, {})))
+endfunction
 
-" --- Experimental---
+" ---------- Experimental ---------
 
 "inoremap <unique> { {};<left><left>
 inoremap <unique> {<cr> {<cr>}<C-o>O
@@ -383,4 +381,4 @@ let g:EasyMotion_smartcase=1
 "let g:NERDSpaceDelims=1
 "let g:NERDRemoveExtraSpaces=1
 "
-" ------------------
+"set viminfo^=%      " Save buffer list to .viminfo and restore them if vim has no args
