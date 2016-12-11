@@ -111,6 +111,11 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'easymotion/vim-easymotion'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'haya14busa/incsearch-fuzzy.vim'
+Plugin 'haya14busa/incsearch-easymotion.vim'
+
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 
@@ -139,11 +144,11 @@ nmap k gk
 nnoremap <unique> <leader>m :copen<cr>
 nnoremap <unique> <leader>c :cclose<cr>
 
-" CTRL-H        switch to previous buffer
+" CTRL-J        switch to previous buffer
 " CTRL-L        switch to next buffer
 " CTRL-K        unload current buffer
 " <leader> O    unload all buffers but current one
-nnoremap <unique><silent> <C-h> :bp<cr>
+nnoremap <unique><silent> <C-j> :bp<cr>
 nnoremap <unique><silent> <C-l> :bn<cr>
 nnoremap <unique><silent> <C-k> :bd<cr>
 nnoremap <unique><silent> <leader>O :call BufOnly()<cr>
@@ -171,6 +176,25 @@ nnoremap <unique> <leader>d :Dox<cr>
 nnoremap <unique> <leader>df :DoxAuthor<cr>
 nnoremap <unique> <leader>dl :DoxLic<cr>
 nnoremap <unique> <leader>db :DoxBlock<cr>
+
+" incsearch-fuzzy-easymotion
+" Note: Backward search (?) cannot be fuzzy because of a bug:
+" Without {'is_stay': 1}, highlight doesn't function.
+noremap <silent><expr> /  incsearch#go(<SID>config_easyfuzzymotion())
+noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>config_easyfuzzymotion({'is_stay': 1}))
+function! s:incsearch_config(...) abort
+  return extend(copy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
+function! s:config_easyfuzzymotion(...) abort
+  return s:incsearch_config(extend(copy({
+  \   'converters': [incsearch#config#fuzzyword#converter()],
+  \ }), get(a:, 1, {})))
+endfunction
 
 " <leader> S    toggle spell checking for current buffer
 nnoremap <unique> <leader>S :set spell!<cr>
