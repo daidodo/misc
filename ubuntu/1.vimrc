@@ -127,6 +127,7 @@ filetype plugin indent on " Enable file type detection, plugins and indent loadi
 " Put your non-Plugin stuff after this line
 
 " -----Normal Mode Key Mapping-----
+
 " Treat long lines as break lines
 nmap j gj
 nmap k gk
@@ -136,14 +137,14 @@ nmap k gk
 nnoremap <unique> <leader>m :copen<cr>
 nnoremap <unique> <leader>c :cclose<cr>
 
-" <leader> p    switch to previous buffer
-" <leader> n    switch to next buffer
-" <leader> k    unload current buffer
-" <leader> B    unload all buffers but current one
-nnoremap <unique><silent> <leader>p :bp<cr>
-nnoremap <unique><silent> <leader>n :bn<cr>
-nnoremap <unique><silent> <leader>k :bd<cr>
-nnoremap <unique><silent> <leader>B :call BufOnly()<cr>
+" CTRL-H        switch to previous buffer
+" CTRL-L        switch to next buffer
+" CTRL-K        unload current buffer
+" <leader> O    unload all buffers but current one
+nnoremap <unique><silent> <C-h> :bp<cr>
+nnoremap <unique><silent> <C-l> :bn<cr>
+nnoremap <unique><silent> <C-k> :bd<cr>
+nnoremap <unique><silent> <leader>O :call BufOnly()<cr>
 
 " YouCompleteMe
 " CTRL-]        goto definition or declaration of current tag
@@ -297,9 +298,9 @@ au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTre
 "inoremap <unique> { {};<left><left>
 inoremap <unique> {<cr> {<cr>}<C-o>O
 inoremap <unique><silent> } <C-r>=ClosePair('}')<cr>
-inoremap <unique> [ []<left>
+"inoremap <unique> [ []<left>
 inoremap <unique><silent> ] <C-r>=ClosePair(']')<cr>
-inoremap <unique> ( ()<left>
+"inoremap <unique> ( ()<left>
 inoremap <unique><silent> ) <C-r>=ClosePair(')')<cr>
 function! ClosePair(char)
   if getline('.')[col('.')-1] == a:char
