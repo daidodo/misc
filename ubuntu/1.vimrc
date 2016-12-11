@@ -48,6 +48,7 @@ set incsearch       " Incremental search
 set hlsearch        " Highlight all search results
 set wildmenu        " Enhanced command-line completion
 set wildignore+=*.o " Ignore certain file types for wildmenu
+set matchpairs+=<:>,=:;   " Let % moves between < > or = ;
 
 set autoread        " auto read when a file is changed from the outside
 set autowrite       " Automatically save before commands like :next and :make
@@ -64,6 +65,7 @@ set laststatus=2    " Always show status line
 set cmdheight=2     " Command line height
 set scrolloff=3     " Minimal number of lines to keep above and below the cursor
 set listchars=tab:>-,trail:-    " When you enter :set list, TAB will shown as '>---'
+set virtualedit=block     " Allow virtual editing in Visual block mode.
 
 set cindent         " Enable C/C++/Java like indentation
 set shiftwidth=4    " Number of spaces to use for each step of indent
@@ -237,7 +239,7 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-au BufWrite *.c,*.cpp,*.cc,*.cxx,*.h,*.hh,*.hpp :call DeleteTrailingWS()
+au BufWrite *.{c,cc,cpp,cxx,h,hh,hpp,hxx} :call DeleteTrailingWS()
 
 " Return to last edit position when opening files
 au BufReadPost *
@@ -288,10 +290,11 @@ endfunction
 au StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
-" Close Vim if the only window left open is a NERD Tree
+" Close Vim if the only window left is a NERD Tree
 au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" Split help window to the right
+autocmd FileType help wincmd L
 
 " --- Experimental---
 
