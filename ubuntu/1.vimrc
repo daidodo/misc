@@ -91,8 +91,8 @@ set tags=tags,./tags,../tags,../../tags,../../../tags,../../../../tags,~/sys.tag
 set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
 
 " Leader Key: <Space>
-let mapleader = " "
-let g:mapleader = " "
+let mapleader=" "
+let g:mapleader=" "
 
 " ----Begin Vundle---
 filetype off   " Disable file type detection, required
@@ -118,7 +118,6 @@ Plugin 'haya14busa/incsearch-easymotion.vim'
 
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
-
 Plugin 'kien/ctrlp.vim'
 
 " All of your Plugins must be added before this line
@@ -212,14 +211,14 @@ inoremap <unique> <C-k> <del>
 "-------------------------------
 
 " YCM
-let g:ycm_confirm_extra_conf = 0 " do not show confirm when loading ycm extra conf
-let g:ycm_min_num_of_chars_for_completion = 3
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
+let g:ycm_confirm_extra_conf=0
+let g:ycm_min_num_of_chars_for_completion=3
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_complete_in_comments=1
+let g:ycm_complete_in_strings=1
 let g:ycm_global_ycm_extra_conf="~/.ycm_extra_conf.py"
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_key_invoke_completion = "<C-n>"
+let g:ycm_autoclose_preview_window_after_insertion=1
+let g:ycm_key_invoke_completion="<C-n>"
 
 " UltiSnips
 " CTRL-B    trigger snippet expand, and jump forward
@@ -229,33 +228,32 @@ let g:UltiSnipsJumpForwardTrigger="<C-b>"
 let g:UltiSnipsJumpBackwardTrigger="<C-v>"
 
 " vim-airline
-let g:airline_theme = "base16color"
-"let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_theme="base16color"
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_nr_show=1
 
 " Doxygen
-let g:load_doxygen_syntax = 1
-let doxygen_my_rendering = 0
+let g:load_doxygen_syntax=1
+let doxygen_my_rendering=0
 let g:DoxygenToolkit_authorName="Zhao DAI"
 let g:DoxygenToolkit_authorMail="daidodo@gmail.com"
 let g:DoxygenToolkit_licenseFile="COPYING"
 
 " TagBar
-let g:tagbar_compact = 1
-let g:tagbar_iconchars = ['+','-']
+let g:tagbar_compact=1
+let g:tagbar_iconchars=['+','-']
 
 " CtrlP
 let g:ctrlp_match_window="order:ttb"
-let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_follow_symlinks=1
 
 " NERD Tree
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeShowHidden = 1
+let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeShowHidden=1
 let g:NERDTreeMinimalUI=1 
 let g:NERDTreeWinPos="right"
-let g:NERDTreeDirArrowExpandable = "+"
-let g:NERDTreeDirArrowCollapsible = "-"
+let g:NERDTreeDirArrowExpandable="+"
+let g:NERDTreeDirArrowCollapsible="-"
 
 " Delete trailing white space on save for C/C++ source
 func! DeleteTrailingWS()
@@ -337,6 +335,9 @@ function! ClosePair(char)
   endif
 endfunction
 
+" easymotion
+let g:EasyMotion_smartcase=1 
+
 "au Filetype sh,vimrc,bashrc setlocal nospell  " Disable spell check for certain file types
 "set completeopt=longest,menu
 
@@ -368,7 +369,9 @@ endfunction
 "nnoremap <unique><silent> <leader>l :ls<cr>
 "nnoremap <unique> t :b<Space>
 
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_collect_identifiers_from_tags_files = 0
+"let g:ycm_autoclose_preview_window_after_completion=1
+"let g:ycm_collect_identifiers_from_tags_files=0
+
+"let g:airline_powerline_fonts=1
 
 " ------------------
