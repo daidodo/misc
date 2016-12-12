@@ -557,6 +557,7 @@ erase
 erase_after
 erf
 erfc
+errno
 error
 error_backref
 error_badbrace
