@@ -19,7 +19,7 @@ useradd dozerg -m -g root -s /bin/bash && \
     git clone https://github.com/daidodo/misc.git ~dozerg/work/misc && \
     chown -R dozerg /home/dozerg
 
-# fix timezone
+# fix timezone, optional
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # sshd

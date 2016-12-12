@@ -317,7 +317,7 @@ function! s:incsearch(...) abort
 endfunction
 
 function! s:fuzzysearch(...) abort
-  return s:incsearch_config(extend(copy({
+  return s:incsearch(extend(copy({
   \   'converters': [incsearch#config#fuzzyword#converter()],
   \ }), get(a:, 1, {})))
 endfunction
