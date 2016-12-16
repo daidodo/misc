@@ -55,7 +55,7 @@ ctags --c-kinds=+px-d -f tags.tmp $DIR2/*
 
 echo "Generate `wc -l tags.tmp | awk '{print $1}'` tags"
 
-awk -F'\t' '{print $1}' tags.tmp | grep -v ! | grep -v \~ | sort -u > key.tmp
+awk -F'\t' '{print $1}' tags.tmp | grep -v ! | grep -v \~ | sort -u > system_keys.save
 
 echo "Generate with `wc -l key.tmp | awk '{print $1}'` keywords"
 
