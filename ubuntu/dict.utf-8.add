@@ -10,3 +10,6 @@ CCharBuffer
 newOffset
 doxygen
 LZO
+github
+zlib
+json
