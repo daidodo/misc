@@ -405,3 +405,8 @@ let g:EasyMotion_smartcase=1
 "
 "set viminfo^=%      " Save buffer list to .viminfo and restore them if vim has no args
 "set hlsearch        " Highlight all search results
+"ctags -R --c++-kinds=+p --fields=+iaS --extra=+q
+
+"let g:Powerline_symbols = 'unicode'
+"let g:Powerline_symbols='fancy'
+"set statusline=%<%f%m\ %y%r%w%{fugitive#statusline()}\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
