@@ -21,6 +21,7 @@
 #include <tuple>
 #include <utility>
 #include <exception>
+#include <stack>
 
 using namespace std;
 
@@ -78,7 +79,7 @@ struct Box
         return (d > a.d);
     }
 };
- 
+
 void print(const vector<int> & r)
 {
     for(size_t j = 0;j < r.size();++j)
