@@ -45,7 +45,6 @@ endif
 set ignorecase      " Do case insensitive matching
 set smartcase       " Do smart case matching
 set incsearch       " Incremental search
-set hlsearch        " Highlight all search results
 set wildmenu        " Enhanced command-line completion
 set wildignore+=*.o " Ignore certain file types for wildmenu
 set matchpairs+=<:>,=:;   " Let % moves between < > or = ;
@@ -104,6 +103,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'scrooloose/syntastic'
+
 Plugin 'daidodo/DoxygenToolkit.vim'
 Plugin 'scrooloose/nerdcommenter'
 
@@ -115,10 +116,13 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'haya14busa/incsearch-fuzzy.vim'
 Plugin 'haya14busa/incsearch-easymotion.vim'
+Plugin 'vim-scripts/EasyGrep'
 
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
+
+Plugin 'uguu-org/vim-matrix-screensaver'
 
 " All of your Plugins must be added before this line
 call vundle#end() " required
@@ -180,11 +184,29 @@ nnoremap <unique> <leader>db :DoxBlock<cr>
 " Note: Backward search (?) cannot be fuzzy because of a bug:
 " Without {'is_stay': 1}, highlight doesn't function.
 noremap <unique><silent><expr> /  incsearch#go(<SID>fuzzysearch())
-noremap <unique><silent><expr> ?  incsearch#go(<SID>incsearch({'command': '?'}))
+noremap <unique><silent><expr> ?  incsearch#go(<SID>fuzzysearch({'command': '?'}))
 noremap <unique><silent><expr> g/ incsearch#go(<SID>fuzzysearch({'is_stay': 1}))
+
+" NERD Tree
+" <leader> n    open file list
+nnoremap <unique><silent> <leader>n :NERDTree<cr>
 
 " <leader> S    toggle spell checking for current buffer
 nnoremap <unique> <leader>S :set spell!<cr>
+
+" EasyGrep
+" <leader> vv    Grep for the word under the cursor, match all occurrences, like |gstar|
+" <leader> vV    Grep for the word under the cursor, match whole word, like |star|
+" <leader> vr    Perform a global search search on the word under the cursor and prompt for a pattern
+"                with which to replace it.
+" <Leader> vo    View/change options.
+
+" NERD Commenter
+" <leader> cc       Comment out the current line or text selected in visual mode.
+" <leader> c<space> Toggles the comment state of the selected line(s). If the topmost selected line
+"                   is commented, all selected lines are uncommented and vice versa.
+" <leader> cs       Comments out the selected lines with a pretty block formatted layout.
+" <leader> cu       Uncomments the selected line(s).
 
 " ---------- Input Mode Key Mapping ---------
 
@@ -202,7 +224,7 @@ if $VIM_HATE_SPACE_ERROR != '0'
   let c_space_errors=1
 endif
 
-" YCM
+" YouCompleteMe
 let g:ycm_confirm_extra_conf=0
 let g:ycm_min_num_of_chars_for_completion=3
 let g:ycm_seed_identifiers_with_syntax=1
@@ -382,3 +404,4 @@ let g:EasyMotion_smartcase=1
 "let g:NERDRemoveExtraSpaces=1
 "
 "set viminfo^=%      " Save buffer list to .viminfo and restore them if vim has no args
+"set hlsearch        " Highlight all search results
