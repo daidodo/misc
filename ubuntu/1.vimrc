@@ -85,7 +85,7 @@ set spell               " Enable spell check
 set spellfile=~/work/misc/ubuntu/dict.utf-8.add  " Custom dictionary
 set spelllang+=sysdict  " Add dictionary for C/C++ and system headers
 
-set tags=tags,./tags,../tags,../../tags,../../../tags,../../../../tags,~/sys.tags
+set tags+=tags;     " Search for tags along the path to root (/)
 set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
 
 " Leader Key: <Space>
