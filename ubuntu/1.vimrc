@@ -289,7 +289,7 @@ au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") |
       \ exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 " Close Vim if the only window left is a NERD Tree
-au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Split help window to the right
 au FileType help wincmd L
@@ -410,3 +410,8 @@ let g:EasyMotion_smartcase=1
 "let g:Powerline_symbols = 'unicode'
 "let g:Powerline_symbols='fancy'
 "set statusline=%<%f%m\ %y%r%w%{fugitive#statusline()}\ %{getcwd()}%=%-14.(%l,%c%V%)\ %p%%
+
+"au BufReadPre * if getfsize(expand("%")) > 1000000 | let g:airline_section_x="%{airline#util#wrap(airline#parts#filetype(),0)}" | endif
+"let g:airline_section_x="%{airline#util#wrap(airline#parts#filetype(),0)}"  " Do not show tagbar
+                                                                            " Fix problem when
+                                                                            " opening large file
