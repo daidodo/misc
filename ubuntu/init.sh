@@ -16,7 +16,6 @@ useradd dozerg -m -g root -s /bin/bash && \
     mv /tmp/1.gitconfig ~dozerg/.gitconfig && \
     cd ~dozerg/.vim/bundle/YouCompleteMe && ./install.py --clang-completer --system-libclang && \
     git clone --recursive https://github.com/daidodo/marine_doc.git ~dozerg/work/marine_doc && \
-    git clone --recursive https://github.com/daidodo/marine_test.git ~dozerg/work/marine_test && \
     git clone --recursive https://github.com/daidodo/misc.git ~dozerg/work/misc && \
     chown -R dozerg /home/dozerg
 
