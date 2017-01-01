@@ -6,7 +6,7 @@ apt-get -y update && \
   gcc g++ gdb gdb-doc \
   clang libclang-dev \
   python-dev python3-dev \
-  doxygen doxygen-doc \
+  doxygen doxygen-doc texlive-latex-base \
   manpages man-db manpages-dev \
   vim exuberant-ctags dos2unix \
   automake make cmake build-essential \
@@ -14,4 +14,3 @@ apt-get -y update && \
   libgoogle-perftools-dev google-perftools \
   openssh-server lrzsz libssl-dev libssl-doc \
   zip unzip
- 
