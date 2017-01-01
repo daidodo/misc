@@ -35,16 +35,15 @@ import ycm_core
 
 flags = [
     '-Wall',
-   '-std=c++14',
+    '-pthread',
+    '-std=c++14',
     '-x',
     'c++',
- 
-	'-I.'
+    '-I.'
+    '-I..'
     '-I../..',
     '-I../../..',
     '-I../../../..',
-    '-I../../../marine',
-    '-I../../marine',
     '-I/usr/local/ssl/include',
 ]
 
