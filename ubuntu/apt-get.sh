@@ -3,7 +3,7 @@ apt-get -y update && \
   apt-get -y install \
   bash bash-completion bash-doc command-not-found \
   sudo git less net-tools sysstat \
-  gcc g++ gdb gdb-doc \
+  gcc g++ gdb gdb-doc strace ltrace \
   clang libclang-dev \
   python-dev python3-dev \
   doxygen doxygen-doc texlive-latex-base \
