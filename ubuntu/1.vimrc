@@ -73,10 +73,10 @@ au Filetype vim,sh,vimrc,bashrc setlocal shiftwidth=2  " TAB width for scripts
 " C/C++ code styles:
 " g0    public/protected/private do not indent.
 " l1    codes inside 'case N:{' indent 1 shiftwidth.
-" (0    codes inside '(' indent 1 shiftwidth for each '('.
 " W1s   the first argument of a function indents 1 shiftwidth.
+" (0    codes inside '(' indent 1 shiftwidth for each '('. (Not applied)
 " N-s   codes inside a namespace do not indent. (Not applied)
-set cinoptions=g0,l1,(0,W1s
+set cinoptions=g0,l1,W1s
 
 set fileencodings=ucs-bom,utf8,cp936,gb2312,gbk,gb18030,big5,euc-jp,euc-kr,latin1
 set encoding=utf-8
@@ -141,6 +141,9 @@ filetype plugin indent on " Enable file type detection, plugins and indent loadi
 " Treat long lines as break lines
 nmap j gj
 nmap k gk
+
+" Enhanced TAB
+nnoremap <tab> a<tab>
 
 " <leader> m    open compile window
 " <leader> c    close compile window
