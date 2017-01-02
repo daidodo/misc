@@ -96,6 +96,7 @@ alias l='ls -CF'
 alias v="view"
 alias sz="sz -bye"
 alias rz="rz -bye"
+alias make="make -j 4"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
