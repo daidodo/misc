@@ -2,7 +2,7 @@ apt-get -y update && \
   apt-get -y upgrade && \
   apt-get -y install \
   bash bash-completion bash-doc command-not-found \
-  sudo git less net-tools iputils-ping sysstat ntp \
+  sudo git less net-tools iputils-ping sysstat openntpd \
   gcc g++ gdb gdb-doc strace ltrace \
   clang libclang-dev \
   python-dev python3-dev \
