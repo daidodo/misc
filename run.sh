@@ -1,6 +1,6 @@
 # start container
 
-docker run -d -p 127.0.0.1:22222:22 --name dev -h dev --security-opt seccomp:unconfined daidodo/dev
+docker run -d -p 127.0.0.1:22222:22 --name dev -h dev --cap-add SYS_TIME --security-opt seccomp:unconfined daidodo/dev
 
 docker run -d -p 127.0.0.1:22220:22 --name alpine -h alpine --security-opt seccomp:unconfined daidodo/dev:alpine
 

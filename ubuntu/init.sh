@@ -6,6 +6,9 @@
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && \
     vim +PluginInstall +qall
 
+# ntpd
+mv /tmp/ntp.conf /etc/ && update-rc.d ntp defaults
+
 # user config
 useradd dozerg -m -g root -s /bin/bash && \
     echo 'dozerg:dozerg' | chpasswd && \
