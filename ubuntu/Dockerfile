@@ -10,5 +10,5 @@ RUN chmod +x *.sh && ./apt-get.sh && ./init.sh
 
 EXPOSE 22
 
-CMD ntpd && /usr/sbin/sshd -D
+CMD service ntp start && /usr/sbin/sshd -D
 
