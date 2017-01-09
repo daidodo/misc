@@ -10,6 +10,5 @@ RUN chmod +x *.sh && ./apt-get.sh && ./init.sh
 
 EXPOSE 22
 
-ENTRYPOINT [ "/usr/sbin/sshd" ]
+CMD service ntp start && /usr/sbin/sshd -D
 
-CMD [ "-D" ]
