@@ -42,7 +42,7 @@ See [`apt-get.sh`](https://github.com/daidodo/misc/blob/master/ubuntu/apt-get.sh
 See [`run.sh`](https://github.com/daidodo/misc/blob/master/run.sh) for more details.
 
 ### Run
-`docker run -d -p 127.0.0.1:22222:22 --name dev -h dev --security-opt seccomp:unconfined daidodo/dev`
+`docker run -d -p 127.0.0.1:22222:22 --name dev -h dev --cap-add SYS_TIME --security-opt seccomp:unconfined daidodo/dev`
 
 ### Login
 `ssh dozerg@localhost -p 22222`
