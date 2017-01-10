@@ -4,8 +4,8 @@ CXXFLAGS := --std=c++14 -g -Wall
 
 all: $(TARGET)
 
-$(TARGET): main.cc
-	$(CXX) $(CXXFLAGS) $< -o $@
+$(TARGET): main.cpp inc.h
+	$(CXX) $(CXXFLAGS) $< -o $<
 
 clean:
 	$(RM) $(TARGET)

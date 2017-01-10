@@ -1,5 +1,3 @@
-// universal includes for leetcode.
-
 #pragma once
 
 #include <vector>
@@ -28,9 +26,6 @@ using namespace std;
 typedef int int32_t;
 typedef unsigned int uint32_t;
 
-//#define unordered_map map
-//#define unordered_set set
-
 struct Interval {
     int start;
     int end;
@@ -48,7 +43,8 @@ struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
-    explicit TreeNode(int x = 0) : val(x), left(NULL), right(NULL) {}
+    TreeNode *parent;
+    explicit TreeNode(int x = 0) : val(x), left(NULL), right(NULL), parent(NULL){}
 };
 
 struct ListNode {
@@ -79,11 +75,11 @@ struct Box
         return (d > a.d);
     }
 };
-
-void print(const vector<int> & r)
+ 
+void print(const vector<int> & r, const char * sp = " ")
 {
     for(size_t j = 0;j < r.size();++j)
-        cout<<r[j]<<" ";
+        cout<<r[j]<<sp;
     cout<<endl;
 }
 
@@ -225,6 +221,9 @@ void print(const vector<bool> & v)
 
 int genRand(int from, int to)
 {
+    static struct Init{
+        Init() { srand((unsigned int)time(NULL)); }
+    }init;
     int range = to - from + 1;
     if (range <= 0)
         return 0;
@@ -253,10 +252,14 @@ void genBoxArray(vector<Box> & A, int count, int from, int to)
         A.push_back(Box(genRand(from, to), genRand(from, to), genRand(from, to)));
 }
 
-string genString(int count, int from, int to)
+string genString(int len, int from, int to)
 {
     string A;
-    for (int i = 0; i < count; ++i)
+    for (int i = 0; i < len; ++i)
         A.push_back(genRand(from, to));
     return A;
 }
+
+ifstream cinf("input.txt");
+
+#define cin cinf
