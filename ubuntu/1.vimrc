@@ -381,7 +381,8 @@ let g:EasyMotion_smartcase=1
 
 " press P P to show tag preview
 " press P C to close tag preview window
-"map PP :ptag <C-R><C-W><cr><C-w>k
+"nmap PP :ped<cr><C-w>k :YcmCompleter GoToDefinitionElseDeclaration<cr>
+"map PO :ptag <C-R><C-W><cr><C-w>k
 "nmap PC :pclose<cr>
 
 " CTRL-H    move cursor left
