@@ -104,6 +104,7 @@ Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'scrooloose/syntastic'
+Plugin 'fatih/vim-go'
 
 Plugin 'daidodo/DoxygenToolkit.vim'
 Plugin 'scrooloose/nerdcommenter'
@@ -370,7 +371,6 @@ let g:EasyMotion_smartcase=1
 "au Filetype sh,vimrc,bashrc setlocal nospell  " Disable spell check for certain file types
 "set completeopt=longest,menu
 
-"Plugin 'fatih/vim-go'
 "Plugin 'solarnz/thrift.vim'
 
 "" <leader> t    run GoTest
