@@ -276,7 +276,10 @@ let g:NERDTreeDirArrowCollapsible="-"
 " NERD Commenter
 let g:NERDTrimTrailingWhitespace=1
 let g:NERDDefaultNesting=0
-let g:NERDDefaultAlign='left'
+let g:NERDDefaultAlign="left"
+
+" vim-go
+let g:go_fmt_command="goimports"
 
 "---------- Auto Commands ---------
 
