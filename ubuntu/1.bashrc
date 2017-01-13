@@ -123,3 +123,5 @@ if ! shopt -oq posix; then
 fi
 
 sudo service ntp start
+
+export GOPATH=$HOME/work/gosrc

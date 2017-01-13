@@ -4,14 +4,14 @@
 /bin/bash -c "sed -i 's#^set path=.*#&`./gen_systags.sh`#' /tmp/1.vimrc" && \
   mv /tmp/1.vimrc ~/.vimrc && mkdir -p ~/.vim/spell && mv sysdict.ascii.spl ~/.vim/spell/ && \
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && \
-  vim +PluginInstall +qall
+  mkdir -p ~/work/gosrc && export GOPATH=~/work/gosrc && \
+  vim +PluginInstall +GoInstallBinaries +qall
 
 # user config
 useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
-  mkdir -p ~dozerg/work/gosrc && \
-  mv ~/tags ~/.vimrc ~/.vim ~dozerg/ && \
+  mv ~/tags ~/.vimrc ~/.vim ~/work ~dozerg/ && \
   mv /tmp/1.bashrc ~dozerg/.bashrc && \
   mv /tmp/1.ycm_extra_conf.py ~dozerg/.ycm_extra_conf.py && \
   mv /tmp/1.gitconfig ~dozerg/.gitconfig && \
