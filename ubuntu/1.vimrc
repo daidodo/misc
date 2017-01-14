@@ -70,6 +70,7 @@ set shiftwidth=4    " Number of spaces to use for each step of indent
 set softtabstop=-1  " Number of spaces for a <Tab> while editing, -1 means same to 'shiftwidth'
 set expandtab       " Use spaces to insert a <Tab>
 au Filetype vim,sh,vimrc,bashrc setlocal shiftwidth=2  " TAB width for scripts
+au Filetype go setlocal tabstop=4   " TAB width for go source
 " C/C++ code styles:
 " g0    public/protected/private do not indent.
 " l1    codes inside 'case N:{' indent 1 shiftwidth.
@@ -86,7 +87,7 @@ set spellfile=~/work/misc/ubuntu/dict.utf-8.add  " Custom dictionary
 set spelllang+=sysdict  " Add dictionary for C/C++ and system headers
 
 set tags+=tags;     " Search for tags along the path to root (/)
-set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
+set path=.,..,../..,../../..,marine,./marine,../marine,../../marine,/usr/include/c++/5,/usr/include/x86_64-linux-gnu/c++/5,/usr/include/c++/5/backward,/usr/lib/gcc/x86_64-linux-gnu/5/include,/usr/local/include,/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed,/usr/include/x86_64-linux-gnu,/usr/include
 
 " Leader Key: <Space>
 let mapleader=" "
@@ -143,8 +144,8 @@ filetype plugin indent on " Enable file type detection, plugins and indent loadi
 nmap j gj
 nmap k gk
 
-" Enhanced TAB
-nnoremap <tab> a<tab>
+nnoremap <unique> <tab> a<tab>          " Enhanced TAB
+nnoremap <unique> H :h <C-r><C-w><cr>   " Quick help
 
 " <leader> m    open compile window
 " <leader> c    close compile window
@@ -211,6 +212,10 @@ nnoremap <unique> <leader>S :set spell!<cr>
 "                   is commented, all selected lines are uncommented and vice versa.
 " <leader> cs       Comments out the selected lines with a pretty block formatted layout.
 " <leader> cu       Uncomments the selected line(s).
+
+" vim-go
+" <leader> R    Build and run your current main package.
+nnoremap <unique> <leader>R :GoRun<cr>
 
 " ---------- Input Mode Key Mapping ---------
 
@@ -280,6 +285,8 @@ let g:NERDDefaultAlign="left"
 
 " vim-go
 let g:go_fmt_command="goimports"
+let g:go_fmt_options="-tabs=false -tabwidth=4"
+"let g:go_goimports_bin = "goimports -tabs=false -tabwidth=4"
 
 "---------- Auto Commands ---------
 
