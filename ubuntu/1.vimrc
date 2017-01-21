@@ -70,7 +70,7 @@ set shiftwidth=4    " Number of spaces to use for each step of indent
 set softtabstop=-1  " Number of spaces for a <Tab> while editing, -1 means same to 'shiftwidth'
 set expandtab       " Use spaces to insert a <Tab>
 au Filetype vim,sh,vimrc,bashrc setlocal shiftwidth=2  " TAB width for scripts
-au Filetype go setlocal tabstop=4   " TAB width for go source
+au Filetype go setlocal tabstop=4 noexpandtab   " TAB for go source
 " C/C++ code styles:
 " g0    public/protected/private do not indent.
 " l1    codes inside 'case N:{' indent 1 shiftwidth.
@@ -285,8 +285,7 @@ let g:NERDDefaultAlign="left"
 
 " vim-go
 let g:go_fmt_command="goimports"
-let g:go_fmt_options="-tabs=false -tabwidth=4"
-"let g:go_goimports_bin = "goimports -tabs=false -tabwidth=4"
+let g:go_bin_path="/usr/lib/go/bin"
 
 "---------- Auto Commands ---------
 
