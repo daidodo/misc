@@ -124,4 +124,4 @@ fi
 
 sudo service ntp start
 
-export GOPATH=$HOME/work/gosrc
+export GOPATH=$HOME/work

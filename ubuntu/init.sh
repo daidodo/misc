@@ -5,7 +5,7 @@
   mv /tmp/1.vimrc ~/.vimrc && mkdir -p ~/.vim/spell && mv sysdict.ascii.spl ~/.vim/spell/ && \
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && \
   vim +PluginInstall +qall && \
-  mkdir -p ~/work/gopath && export GOPATH=~/work/gopath GOBIN=/usr/lib/go/bin && /tmp/go-get.sh
+  mkdir -p ~/work && export GOPATH=~/work GOBIN=/usr/lib/go/bin && /tmp/go-get.sh
 
 # user config
 useradd dozerg -m -g root -s /bin/bash && \
