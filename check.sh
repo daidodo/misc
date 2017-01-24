@@ -16,3 +16,6 @@ diff ~/.gitconfig $DIR/1.gitconfig
 
 #echo "Check ntp.conf"
 diff /etc/ntp.conf $DIR/ntp.conf
+
+#echo "Check sysdict.ascii.spl"
+diff ~/.vim/spell/sysdict.ascii.spl $DIR/sysdict.ascii.spl
