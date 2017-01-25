@@ -39,3 +39,6 @@ viminfo
 epoll
 burstiness
 calc
+goroutine
+goroutines
+structs
