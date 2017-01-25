@@ -87,7 +87,7 @@ set spellfile=~/work/misc/ubuntu/dict.utf-8.add  " Custom dictionary
 set spelllang+=sysdict  " Add dictionary for C/C++ and system headers
 
 set tags+=tags;     " Search for tags along the path to root (/)
-set path=.,..,../..,../../..,marine,./marine,../marine,../../marine
+set path=.,..,../..,../../..,marine,./marine,../marine,../../marine,/usr/include/c++/5,/usr/include/x86_64-linux-gnu/c++/5,/usr/include/c++/5/backward,/usr/lib/gcc/x86_64-linux-gnu/5/include,/usr/local/include,/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed,/usr/include/x86_64-linux-gnu,/usr/include
 
 " Leader Key: <Space>
 let mapleader=" "
@@ -144,21 +144,20 @@ filetype plugin indent on " Enable file type detection, plugins and indent loadi
 nmap j gj
 nmap k gk
 
-nnoremap <unique> <tab> a<tab>          " Enhanced TAB
-nnoremap <unique> H :h <C-r><C-w><cr>   " Quick help
-
-" <leader> m    open compile window
-" <leader> c    close compile window
-nnoremap <unique> <leader>m :copen<cr>
-nnoremap <unique> <leader>c :cclose<cr>
+" Enhanced TAB
+" Quick help
+nnoremap <unique> <tab> a<tab>
+nnoremap <unique> H :h <C-r><C-w><cr>
 
 " CTRL-J        switch to previous buffer
 " CTRL-L        switch to next buffer
 " CTRL-K        unload current buffer
+" <leader> m    open or close Quickfix window
 " <leader> O    unload all buffers but current one
 nnoremap <unique><silent> <C-j> :bp<cr>
 nnoremap <unique><silent> <C-l> :bn<cr>
 nnoremap <unique><silent> <C-k> :bd<cr>
+nnoremap <unique> <leader>m :call ToggleQuickfix()<cr>
 nnoremap <unique><silent> <leader>O :call BufOnly()<cr>
 
 " YouCompleteMe
@@ -215,7 +214,9 @@ nnoremap <unique> <leader>S :set spell!<cr>
 
 " vim-go
 " <leader> R    Build and run your current main package.
+" <leader> T    Run tests in current directory.
 nnoremap <unique> <leader>R :GoRun<cr>
+nnoremap <unique> <leader>T :GoTest<cr>
 
 " ---------- Input Mode Key Mapping ---------
 
@@ -225,6 +226,9 @@ nnoremap <unique> <leader>R :GoRun<cr>
 " CTRL-K    delete the character under the cursor, same as <Del>
 inoremap <unique> <C-l> <C-o>O
 inoremap <unique> <C-k> <del>
+
+" Enhanced {
+inoremap <unique> {<cr> {<cr>}<C-o>O
 
 "---------- Global Variables ---------
 
@@ -301,8 +305,9 @@ au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") |
       \ exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-" Close Vim if the only window left is a NERD Tree
-au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Close Vim if the only window left is a NERD Tree or Quickfix
+au BufEnter * if (winnr("$") == 1 && (getbufvar(winbufnr(1), "&buftype") == "quickfix" ||
+      \ (exists("b:NERDTree") && b:NERDTree.isTabTree()))) | q | endif
 
 " Split help window to the right
 au FileType help wincmd L
@@ -343,6 +348,16 @@ function! BufOnly()
   endif
 endfunction
 
+function! ToggleQuickfix()
+  for i in range(1, winnr("$"))
+    if getbufvar(winbufnr(i), "&buftype") == "quickfix"
+      cclose
+      return
+    endif
+  endfor
+  copen
+endfunction
+
 function! s:incsearch(...) abort
   return extend(copy({
   \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
@@ -360,8 +375,7 @@ endfunction
 " ---------- Experimental ---------
 
 "inoremap <unique> { {};<left><left>
-inoremap <unique> {<cr> {<cr>}<C-o>O
-inoremap <unique><silent> } <C-r>=ClosePair('}')<cr>
+"inoremap <unique><silent> } <C-r>=ClosePair('}')<cr>
 "inoremap <unique> [ []<left>
 inoremap <unique><silent> ] <C-r>=ClosePair(']')<cr>
 "inoremap <unique> ( ()<left>
@@ -375,7 +389,7 @@ function! ClosePair(char)
 endfunction
 
 " easymotion
-let g:EasyMotion_smartcase=1 
+"let g:EasyMotion_smartcase=1 
 
 "au Filetype sh,vimrc,bashrc setlocal nospell  " Disable spell check for certain file types
 "set completeopt=longest,menu
