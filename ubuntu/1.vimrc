@@ -104,8 +104,11 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'scrooloose/syntastic'
 Plugin 'fatih/vim-go'
+
+Plugin 'scrooloose/syntastic'
+Plugin 'majutsushi/tagbar'
+Plugin 'daidodo/Improved-AnsiEsc'
 
 Plugin 'daidodo/DoxygenToolkit.vim'
 Plugin 'scrooloose/nerdcommenter'
@@ -120,7 +123,6 @@ Plugin 'haya14busa/incsearch-fuzzy.vim'
 Plugin 'haya14busa/incsearch-easymotion.vim'
 Plugin 'vim-scripts/EasyGrep'
 
-Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 
@@ -296,8 +298,11 @@ let g:go_bin_path="/usr/lib/go/bin"
 " Delete trailing white space on save for C/C++ source
 au BufWrite *.{c,cc,cpp,cxx,h,hh,hpp,hxx} exe "normal mz" | %s/\s\+$//ge | exe "normal `z"
 
-" Return to last edit position when opening files
+" When opening files:
+" Return to last edit position
+" If it's Quickfix window, enable AnsiEsc
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+au BufReadPost * if getbufvar(winbufnr(0), "&buftype") == "quickfix" | call AnsiEsc#AnsiEsc(0) | endif
 
 " Start NERD Tree when execute 'vim' or 'vim A_DIR'
 au StdinReadPre * let s:std_in=1
