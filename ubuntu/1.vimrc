@@ -300,9 +300,9 @@ au BufWrite *.{c,cc,cpp,cxx,h,hh,hpp,hxx} exe "normal mz" | %s/\s\+$//ge | exe "
 
 " When opening files:
 " Return to last edit position
-" If it's Quickfix window, enable AnsiEsc
+" If it's Quickfix window, enable AnsiEsc and disable spell check
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-au BufReadPost * if getbufvar(winbufnr(0), "&buftype") == "quickfix" | call AnsiEsc#AnsiEsc(0) | endif
+au BufReadPost * if getbufvar(winbufnr(0), "&buftype") == "quickfix" | set nospell | call AnsiEsc#AnsiEsc(0) | endif
 
 " Start NERD Tree when execute 'vim' or 'vim A_DIR'
 au StdinReadPre * let s:std_in=1
