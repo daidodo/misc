@@ -381,7 +381,7 @@ endfunction
 
 "inoremap <unique> { {};<left><left>
 "inoremap <unique><silent> } <C-r>=ClosePair('}')<cr>
-"inoremap <unique> [ []<left>
+inoremap <unique> [ []<left>
 inoremap <unique><silent> ] <C-r>=ClosePair(']')<cr>
 "inoremap <unique> ( ()<left>
 inoremap <unique><silent> ) <C-r>=ClosePair(')')<cr>
