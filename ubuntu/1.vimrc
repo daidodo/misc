@@ -382,10 +382,10 @@ endfunction
 
 "inoremap <unique> { {};<left><left>
 "inoremap <unique><silent> } <C-r>=ClosePair('}')<cr>
-inoremap <unique> [ []<left>
-inoremap <unique><silent> ] <C-r>=ClosePair(']')<cr>
+"inoremap <unique> [ []<left>
+"inoremap <unique><silent> ] <C-r>=ClosePair(']')<cr>
 "inoremap <unique> ( ()<left>
-inoremap <unique><silent> ) <C-r>=ClosePair(')')<cr>
+"inoremap <unique><silent> ) <C-r>=ClosePair(')')<cr>
 function! ClosePair(char)
   if getline('.')[col('.')-1] == a:char
     return "\<Right>"
