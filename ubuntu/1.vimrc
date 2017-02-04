@@ -159,7 +159,7 @@ nnoremap <unique> H :h <C-r><C-w><cr>
 nnoremap <unique><silent> <C-j> :bp<cr>
 nnoremap <unique><silent> <C-l> :bn<cr>
 nnoremap <unique><silent> <C-k> :bd<cr>
-nnoremap <unique> <leader>m :call ToggleQuickfix()<cr>
+nnoremap <unique><silent> <leader>m :call ToggleQuickfix()<cr>
 nnoremap <unique><silent> <leader>O :call BufOnly()<cr>
 
 " YouCompleteMe
