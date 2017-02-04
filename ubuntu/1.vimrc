@@ -171,9 +171,9 @@ nnorema <unique> <C-]> :YcmCompleter GoToDefinitionElseDeclaration<cr>
 nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
 
 " fugitive
-" <leader> g    git status
+" <leader> gg   git status
 " <leader> gd   git diff
-nnoremap <unique> <leader>g :Gstatus<cr>
+nnoremap <unique> <leader>gg :Gstatus<cr>
 nnoremap <unique> <leader>gd :Gvdiff<cr>
 
 " DoxygenToolkit
