@@ -187,8 +187,6 @@ nnoremap <unique> <leader>dl :DoxLic<cr>
 nnoremap <unique> <leader>db :DoxBlock<cr>
 
 " incsearch-fuzzy-easymotion
-" Note: Backward search (?) cannot be fuzzy because of a bug:
-" Without {'is_stay': 1}, highlight doesn't function.
 noremap <unique><silent><expr> /  incsearch#go(<SID>fuzzysearch())
 noremap <unique><silent><expr> ?  incsearch#go(<SID>fuzzysearch({'command': '?'}))
 noremap <unique><silent><expr> g/ incsearch#go(<SID>fuzzysearch({'is_stay': 1}))
