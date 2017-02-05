@@ -159,7 +159,7 @@ nnoremap <unique> H :h <C-r><C-w><cr>
 nnoremap <unique><silent> <C-j> :bp<cr>
 nnoremap <unique><silent> <C-l> :bn<cr>
 nnoremap <unique><silent> <C-k> :bd<cr>
-nnoremap <unique> <leader>m :call ToggleQuickfix()<cr>
+nnoremap <unique><silent> <leader>m :call ToggleQuickfix()<cr>
 nnoremap <unique><silent> <leader>O :call BufOnly()<cr>
 
 " YouCompleteMe
@@ -171,9 +171,9 @@ nnorema <unique> <C-]> :YcmCompleter GoToDefinitionElseDeclaration<cr>
 nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
 
 " fugitive
-" <leader> g    git status
+" <leader> gg   git status
 " <leader> gd   git diff
-nnoremap <unique> <leader>g :Gstatus<cr>
+nnoremap <unique> <leader>gg :Gstatus<cr>
 nnoremap <unique> <leader>gd :Gvdiff<cr>
 
 " DoxygenToolkit
@@ -187,8 +187,6 @@ nnoremap <unique> <leader>dl :DoxLic<cr>
 nnoremap <unique> <leader>db :DoxBlock<cr>
 
 " incsearch-fuzzy-easymotion
-" Note: Backward search (?) cannot be fuzzy because of a bug:
-" Without {'is_stay': 1}, highlight doesn't function.
 noremap <unique><silent><expr> /  incsearch#go(<SID>fuzzysearch())
 noremap <unique><silent><expr> ?  incsearch#go(<SID>fuzzysearch({'command': '?'}))
 noremap <unique><silent><expr> g/ incsearch#go(<SID>fuzzysearch({'is_stay': 1}))
