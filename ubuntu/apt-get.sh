@@ -4,7 +4,7 @@ apt-get -y update && \
   bash bash-completion bash-doc command-not-found \
   sudo git less net-tools iputils-ping sysstat ntp \
   gcc g++ gdb gdb-doc strace ltrace \
-  golang-go \
+  golang-go golang-golang-x-tools \
   clang libclang-dev \
   python-dev python3-dev \
   doxygen doxygen-doc texlive-latex-base \
