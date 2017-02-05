@@ -10,6 +10,8 @@ RUN chmod +x *.sh && ./apt-get.sh && ./init.sh
 
 EXPOSE 22
 
+EXPOSE 6060
+
 ENTRYPOINT [ "/usr/sbin/sshd" ]
 
 CMD [ "-D" ]
