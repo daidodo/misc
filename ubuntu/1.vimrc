@@ -164,27 +164,27 @@ nnoremap <unique><silent> <leader>O :call BufOnly()<cr>
 
 " YouCompleteMe
 " CTRL-]        goto definition or declaration of current tag
-nnorema <unique> <C-]> :YcmCompleter GoToDefinitionElseDeclaration<cr>
+nnorema <unique><silent> <C-]> :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
 " TagBar
 " <leader> t    open or close TagBar
-nnoremap <unique> <leader>t :TagbarOpenAutoClose<cr>
+nnoremap <unique><silent> <leader>t :TagbarOpenAutoClose<cr>
 
 " fugitive
 " <leader> gg   git status
 " <leader> gd   git diff
-nnoremap <unique> <leader>gg :Gstatus<cr>
-nnoremap <unique> <leader>gd :Gvdiff<cr>
+nnoremap <unique><silent> <leader>gg :Gstatus<cr>
+nnoremap <unique><silent> <leader>gd :Gvdiff<cr>
 
 " DoxygenToolkit
 " <leader> d    generate doxygen comments for class, func, etc.
 " <leader> df   generate doxygen comments for file
 " <leader> dl   generate licence statement
 " <leader> db   generate block comment
-nnoremap <unique> <leader>d :Dox<cr>
-nnoremap <unique> <leader>df :DoxAuthor<cr>
-nnoremap <unique> <leader>dl :DoxLic<cr>
-nnoremap <unique> <leader>db :DoxBlock<cr>
+nnoremap <unique><silent> <leader>d :Dox<cr>
+nnoremap <unique><silent> <leader>df :DoxAuthor<cr>
+nnoremap <unique><silent> <leader>dl :DoxLic<cr>
+nnoremap <unique><silent> <leader>db :DoxBlock<cr>
 
 " incsearch-fuzzy-easymotion
 noremap <unique><silent><expr> /  incsearch#go(<SID>fuzzysearch())
@@ -215,8 +215,8 @@ nnoremap <unique> <leader>S :set spell!<cr>
 " vim-go
 " <leader> R    Build and run your current main package.
 " <leader> T    Run tests in current directory.
-nnoremap <unique> <leader>R :GoRun<cr>
-nnoremap <unique> <leader>T :GoTest<cr>
+nnoremap <unique><silent> <leader>R :GoRun<cr>
+nnoremap <unique><silent> <leader>T :GoTest<cr>
 
 " ---------- Input Mode Key Mapping ---------
 
