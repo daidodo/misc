@@ -8,6 +8,7 @@ apt-get -y update && \
   clang libclang-dev \
   python-dev python3-dev \
   doxygen doxygen-doc texlive-latex-base \
+  npm nodejs-legacy nodejs \
   manpages man-db manpages-dev \
   vim exuberant-ctags dos2unix \
   automake make cmake build-essential \
