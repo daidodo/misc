@@ -15,4 +15,5 @@ apt-get -y update && \
   protobuf-compiler libprotobuf-dev libsnappy-dev \
   libgoogle-perftools-dev google-perftools \
   openssh-server lrzsz libssl-dev libssl-doc \
-  zip unzip
+  zip unzip \
+  mysql-server mysql-client
