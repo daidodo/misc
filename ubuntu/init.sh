@@ -13,7 +13,7 @@
 useradd dozerg -m -g root -s /bin/bash && \
   echo 'dozerg:dozerg' | chpasswd && \
   echo 'dozerg  ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dozerg && \
-  mv -f ~/* ~dozerg/ && \
+  shopt -s dotglob && mv ~/* ~dozerg/ && \
   mv /tmp/1.bashrc ~dozerg/.bashrc && \
   mv /tmp/1.ycm_extra_conf.py ~dozerg/.ycm_extra_conf.py && \
   mv /tmp/1.gitconfig ~dozerg/.gitconfig && \
