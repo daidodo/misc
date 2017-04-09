@@ -16,4 +16,4 @@ apt-get -y update && \
   libgoogle-perftools-dev google-perftools \
   openssh-server lrzsz libssl-dev libssl-doc \
   zip unzip \
-  mysql-server mysql-client
+  mysql-client
