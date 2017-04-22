@@ -14,6 +14,7 @@ go get -v -u 'github.com/josharian/impl'
 go get -v -u 'github.com/golang/protobuf/...'
 go get -v -u 'github.com/go-sql-driver/mysql'
 go get -v -u 'github.com/stretchr/testify'
+go get -v -u 'github.com/cloudfoundry/gosigar'
 
 go get       'github.com/daidodo/testa'
 go get       'github.com/daidodo/overlord'
