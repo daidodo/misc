@@ -125,4 +125,4 @@ fi
 sudo service ntp start
 
 export GOPATH=$HOME/work
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/lib/go/bin:$GOPATH/bin
