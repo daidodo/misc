@@ -1,10 +1,10 @@
 # start container
 
 ## Windows
-docker run -d -p 127.0.0.1:22222:22 -p 127.0.0.1:6060:6060 --name dev -h dev --cap-add SYS_TIME --security-opt seccomp:unconfined --link db:mysql daidodo/dev
+docker run -d -p 127.0.0.1:22222:22 -p 127.0.0.1:6060:6060 -p 127.0.0.1:8080:8080 --name dev -h dev --cap-add SYS_TIME --security-opt seccomp:unconfined --link db:mysql daidodo/dev
 
 ## Mac
-docker run -d -p 127.0.0.1:22222:22 -p 127.0.0.1:6060:6060 --name dev -h dev --security-opt seccomp:unconfined --link db:mysql daidodo/dev
+docker run -d -p 127.0.0.1:22222:22 -p 127.0.0.1:6060:6060 -p 127.0.0.1:8080:8080 --name dev -h dev --security-opt seccomp:unconfined --link db:mysql daidodo/dev
 
 ## alpine
 docker run -d -p 127.0.0.1:22220:22 --name alpine -h alpine --security-opt seccomp:unconfined daidodo/dev:alpine

@@ -8,9 +8,7 @@ WORKDIR /tmp
 
 RUN chmod +x *.sh && ./apt-get.sh && ./init.sh
 
-EXPOSE 22
-
-EXPOSE 6060
+EXPOSE 22 6060 8080
 
 ENTRYPOINT [ "/usr/sbin/sshd" ]
 
