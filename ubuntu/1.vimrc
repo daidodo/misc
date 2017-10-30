@@ -45,6 +45,7 @@ endif
 set ignorecase      " Do case insensitive matching
 set smartcase       " Do smart case matching
 set incsearch       " Incremental search
+set hlsearch        " Highlight all search results
 set wildmenu        " Enhanced command-line completion
 set wildignore+=*.o " Ignore certain file types for wildmenu
 set matchpairs+=<:>,=:;   " Let % moves between < > or = ;
@@ -57,8 +58,8 @@ set noswapfile      " Do not use swap file
 set showmatch       " Show matching brackets.
 set number          " Show line number
 set cursorline      " Highlight current line
-set textwidth=100   " Max line length
-set colorcolumn=101 " Highlight column 101
+set textwidth=120   " Max line length
+set colorcolumn=+1  " Highlight a column after 'textwidth'
 set laststatus=2    " Always show status line
 set cmdheight=2     " Command line height
 set scrolloff=3     " Minimal number of lines to keep above and below the cursor
@@ -292,6 +293,7 @@ let g:NERDDefaultAlign="left"
 let g:go_fmt_command="goimports"
 let g:go_bin_path="/usr/lib/go/bin"
 
+
 "---------- Auto Commands ---------
 
 " Delete trailing white space on save for C/C++ source
@@ -299,15 +301,9 @@ au BufWrite *.{c,cc,cpp,cxx,h,hh,hpp,hxx} exe "normal mz" | %s/\s\+$//ge | exe "
 
 " When opening files:
 " Return to last edit position
-" If it's Quickfix window, enable AnsiEsc and disable spell check
+" If it's READONLY, enable AnsiEsc and disable spell check
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-au BufReadPost * if getbufvar(winbufnr(0), "&buftype") == "quickfix" | set nospell | call AnsiEsc#AnsiEsc(0) | endif
-
-" Start NERD Tree when execute 'vim' or 'vim A_DIR'
-au StdinReadPre * let s:std_in=1
-au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") |
-      \ exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+au BufReadPost * if &readonly | set nospell | call AnsiEsc#AnsiEsc(0) | set colorcolumn=0 | endif
 
 " Close Vim if the only window left is a NERD Tree or Quickfix
 au BufEnter * if (winnr("$") == 1 && (getbufvar(winbufnr(1), "&buftype") == "quickfix" ||
@@ -446,3 +442,12 @@ endfunction
 "let g:airline_section_x="%{airline#util#wrap(airline#parts#filetype(),0)}"  " Do not show tagbar
                                                                             " Fix problem when
                                                                             " opening large file
+" If it's Quickfix window, enable AnsiEsc and disable spell check
+"au BufReadPost * if getbufvar(winbufnr(0), "&buftype") == "quickfix" | set nospell | call AnsiEsc#AnsiEsc(0) | set colorcolumn=0 | endif
+"
+" Start NERD Tree when execute 'vim' or 'vim A_DIR'
+"au StdinReadPre * let s:std_in=1
+"au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") |
+"      \ exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
