@@ -18,3 +18,5 @@ ssh dozerg@localhost -p 22220
 # mysql
 
 docker run -d --name db -e MYSQL_ROOT_PASSWORD=mysql mysql
+
+mysql -h db -u root -p
