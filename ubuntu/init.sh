@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# update system
+./apt-get.sh
+
 # vim & tags & ...
 /bin/bash -c "sed -i 's#^set path=.*#&`./gen_systags.sh`#' /tmp/1.vimrc" && \
   mv /tmp/1.vimrc ~/.vimrc && mkdir -p ~/.vim/spell && mv sysdict.ascii.spl ~/.vim/spell/ && \
