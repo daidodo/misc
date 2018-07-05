@@ -47,6 +47,12 @@ struct TreeNode {
     explicit TreeNode(int x = 0) : val(x), left(NULL), right(NULL), parent(NULL){}
 };
 
+struct MultiwayTreeNode {
+    int val;
+    vector<MultiwayTreeNode *> children;
+    explicit MultiwayTreeNode(int x = 0) : val(x){}
+};
+
 struct ListNode {
     int val;
     ListNode *next;
@@ -75,7 +81,7 @@ struct Box
         return (d > a.d);
     }
 };
- 
+
 void print(const vector<int> & r, const char * sp = " ")
 {
     for(size_t j = 0;j < r.size();++j)
@@ -226,11 +232,8 @@ int genRand(int from, int to)
     }init;
     int range = to - from + 1;
     if (range <= 0)
-        return 0;
-    int r = rand();
-    r <<= 16;
-    r += rand();
-    return (r % range + from);
+        return from;
+    return (rand() % range + from);
 }
 
 template<typename T>

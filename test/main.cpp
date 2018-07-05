@@ -1,38 +1,67 @@
 #include "inc.h"
 
+// Find the lowest common ancestor of all the deepest level leaves in a tree (NOT binary).
+
 class Solution {
 public:
-    vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
-        unordered_set<string> s(words.begin(), words.end());
-        vector<string> ret;
-        for(const auto & w : words){
-            vector<bool> dp(w.size());
-            for(size_t i = 0;i + 1 < w.size();++i){
-                if(!dp[i] && !s.count(w.substr(0, i + 1)))
-                    continue;
-                for(size_t j = i + 1;j < w.size();++j)
-                    if(s.count(w.substr(i + 1, j - i)) > 0)
-                        dp[j] = true;
-                if(dp.back()){
-                    ret.push_back(w);
-                    break;
-                }
-            }
+    const MultiwayTreeNode * LCA(const MultiwayTreeNode * root){
+        return help(root).second;
+    }
+    pair<int, const MultiwayTreeNode *> help(const MultiwayTreeNode * root){
+        if(!root)
+            return make_pair(0, nullptr);
+        pair<int, int> s;
+        const MultiwayTreeNode * lca = nullptr;
+        for(const MultiwayTreeNode * c : root->children){
+            auto r = help(c);
+            if(r.first > s.first){
+                s = make_pair(r.first, 1);
+                lca = r.second;
+            }else if(r.first == s.first)
+                ++s.second;
         }
-        return ret;
+        /* Explanation:
+         *  1. If root has no children, then LCA is the root;
+         *  2. If root has only 1 child and it's a leaf, then LCA is the root;
+         *  3. If only 1 child C has max D, then LCA(root) = LCA(C);
+         *  4. If 2 or more children have max D, then LCA is the root;
+         */
+        if(lca == nullptr || s.first == 1 || s.second > 1)
+            lca = root;
+        return make_pair(s.first + 1, lca); // (D, LCA)
     }
 };
 
 int main(){
     {
-        vector<string> in{"cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"};
-        print(Solution().findAllConcatenatedWordsInADict(in));
+        cout<<Solution().LCA(nullptr)<<endl;
     }{
-        vector<string> in{"a", "aa", "aaa", "aaaa", "aaaaa"};
-        print(Solution().findAllConcatenatedWordsInADict(in));
+        MultiwayTreeNode root(1);
+        cout<<Solution().LCA(&root)->val<<endl;
     }{
-        vector<string> in{"abc"};
-        print(Solution().findAllConcatenatedWordsInADict(in));
+        MultiwayTreeNode n1(1);
+        MultiwayTreeNode n2(2);
+        n1.children.push_back(&n2);
+        cout<<Solution().LCA(&n1)->val<<endl;
+    }{
+        MultiwayTreeNode n1(1), n2(2), n3(3);
+        n1.children.push_back(&n2);
+        n1.children.push_back(&n3);
+        cout<<Solution().LCA(&n1)->val<<endl;
+    }{
+        MultiwayTreeNode n1(1), n2(2), n3(3), n4(4);
+        n1.children.push_back(&n2);
+        n1.children.push_back(&n3);
+        n3.children.push_back(&n4);
+        cout<<Solution().LCA(&n1)->val<<endl;
+    }{
+        MultiwayTreeNode n1(1), n2(2), n3(3), n4(4), n5(5), n6(6);
+        n1.children.push_back(&n2);
+        n1.children.push_back(&n3);
+        n3.children.push_back(&n4);
+        n2.children.push_back(&n5);
+        n5.children.push_back(&n6);
+        cout<<Solution().LCA(&n1)->val<<endl;
     }
     return 0;
 }

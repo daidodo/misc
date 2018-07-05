@@ -60,6 +60,7 @@ set number          " Show line number
 set cursorline      " Highlight current line
 set textwidth=120   " Max line length
 set colorcolumn=+1  " Highlight a column after 'textwidth'
+set formatoptions-=t  " Do NOT auto wrap
 set laststatus=2    " Always show status line
 set cmdheight=2     " Command line height
 set scrolloff=3     " Minimal number of lines to keep above and below the cursor
