@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:latest
 
 MAINTAINER DoZerg "daidodo@gmail.com"
 
@@ -6,7 +6,9 @@ COPY init.sh apt-get.sh gen_systags.sh 1.vimrc 1.bashrc 1.ycm_extra_conf.py 1.gi
 
 WORKDIR /tmp
 
-RUN chmod +x *.sh && ./init.sh
+RUN chmod +x *.sh
+
+# && ./init.sh
 
 EXPOSE 22 6060 8080
 
